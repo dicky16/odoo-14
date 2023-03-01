@@ -1,0 +1,75 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_perijinan_view">
+        <field name="name">hr.perijinan.view</field>
+        <field name="model">hr.perijinan</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" decoration-danger="is_expired==True" >
+                <field name="tipe"/>
+                <field name="description"/>
+                <field name="document_number"/>
+                <field name="penerbit"/>
+                <field name="from_date"/>
+                <field name="to_date" attrs="{'readonly':[('time','=', True)]}" />
+                <field name="time"/>
+                <field name="status"/>
+                <field name="note"/>
+                <field name="document" widget="binary" />
+                <field name="is_expired" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="tipe_perijinan_view">
+        <field name="name">tipe.perijinan.view</field>
+        <field name="model">tipe.perijinan</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="penerbit_perijinan_view">
+        <field name="name">penerbit.perijinan.view</field>
+        <field name="model">penerbit.perijinan</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="hr_perijinan_action" model="ir.actions.act_window">
+        <field name="name">Perijinan</field>
+        <field name="res_model">hr.perijinan</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="tipe_perijinan_action" model="ir.actions.act_window">
+        <field name="name">Tipe Perijinan</field>
+        <field name="res_model">tipe.perijinan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="penerbit_perijinan_action" model="ir.actions.act_window">
+        <field name="name">Penerbit Perijinan</field>
+        <field name="res_model">penerbit.perijinan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hr_perijinan_root" name="Perijinan" parent="hr_attendance.menu_hr_attendance_root" sequence="25"/>
+
+    <menuitem id="hr_perijinan_menu"
+              name="Perijinan"
+              parent="akm_perijinan.hr_perijinan_root"
+              action="hr_perijinan_action"/>
+
+    <menuitem id="tipe_perijinan_menu" name="Tipe Perijinan"
+              parent="akm_perijinan.hr_perijinan_root"
+              action="tipe_perijinan_action"/>
+
+    <menuitem id="penerbit_perijinan_menu" name="Penerbit Perijinan"
+              parent="akm_perijinan.hr_perijinan_root"
+              action="penerbit_perijinan_action"/>
+</odoo>

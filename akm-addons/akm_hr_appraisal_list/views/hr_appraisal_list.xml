@@ -1,0 +1,15 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_appraisal_list">
+        <field name="name">hr.appraisal.list</field>
+        <field name="model">hr.appraisal</field>
+        <field name="inherit_id" ref="akm_hr_appraisal.view_hr_appraisal_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </xpath>
+            <xpath expr="//field[@name='pay_department']" position="after">
+                <field name="periode2"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

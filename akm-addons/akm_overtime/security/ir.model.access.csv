@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_overtime_type,access_overtime_type,akm_overtime.model_overtime_type,,1,1,1,1
+access_overtime_request,access_overtime_request,akm_overtime.model_overtime_request,,1,1,1,1
+access_overtime_reject,access_overtime_reject,akm_overtime.model_overtime_reject,,1,1,1,1
+access_overtime_request_line,access_overtime_request_line,akm_overtime.model_overtime_request_line,,1,1,1,1

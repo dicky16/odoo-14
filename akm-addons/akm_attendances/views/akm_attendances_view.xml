@@ -1,0 +1,20 @@
+<odoo>
+    <record model="ir.ui.view" id="akm_attendances_view">
+        <field name="name">akm.attendances.view</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="before">
+                <field name="nik"/>
+                <field name="barcode"/>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position='after'>
+		    <field name='pay_department'/>
+		    <field name='pay_group'/>
+            </xpath>
+            <xpath expr="//field[@name='worked_hours']" position="replace">
+                <field name="worked_hours" string="Work Hours" widget="float_time" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,118 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="disciplinary_tree_view">
+        <field name="name">disciplinary.tree.view</field>
+        <field name="model">disciplinary.stage</field>
+        <field name="arch" type="xml">
+            <tree string="User Form">
+                <field name="sequence"/>
+                <field name="disciplinary_code"/>
+                <field name="disciplinary_name"/>
+                <field name="valid_for_months"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="disciplinary_form_view">
+        <field name="name">disciplinary.form.view</field>
+        <field name="model">disciplinary.stage</field>
+        <field name="arch" type="xml">
+          <form string="User Form">
+            <group>
+                <group>
+                    <field name="disciplinary_code" class="oe_inline"/>
+                    <field name="disciplinary_name"/>
+                    <field name="disciplinary_stage" class="oe_inline"/>
+                    <field name="valid_for_months" class="oe_inline"/>
+<!--                    <field name="disciplinary_stage"/>-->
+                </group>
+            </group>
+              <br/>
+<!--              <div><h5>Follow Up Action</h5></div><br/>-->
+<!--                <div>After <field name="after_x_days" class="oe_inline"/> days, do the following action</div>-->
+<!--                <br/>-->
+<!--                &lt;!&ndash; <div><field name="manual_action" class="oe_inline"/> Manual Action</div><br/> &ndash;&gt;-->
+<!--                <div><field name="send_email" class="oe_inline"/> Send an Email</div><br/>-->
+<!--                <div><field name="send_letter" class="oe_inline"/> Send a Letter</div><br/>-->
+              <!-- <separator String="Manual Action" attrs="{'invisible':[('manual_action', '=', False)]}" /> -->
+              <!-- <group attrs="{'invisible':[('manual_action', '=', False)]}"> -->
+                <!-- <group> -->
+                  <!-- <field name="assign_a_responsible"/> -->
+                  <!-- <field name="action_to_do"/> -->
+
+              <!--   </group>
+              </group>
+ -->
+        
+<!--              <separator String="Send an Email"/>-->
+<!--              <div class="text-muted"> Write here the introduction in the letter, according to the level of the follow-up. You can use the following keywords in the text. <br/>-->
+<!--              Don't forget to translate in all languages you installed using to top right icon </div>-->
+<!--                <h5>Used Variables: </h5><h6>$(partner_name)  $(partner_name)</h6>-->
+<!--                <field name="letter_content" />-->
+            </form>
+        </field>
+    </record>
+
+    <record id="view_disciplinary_history_search" model="ir.ui.view">
+        <field name="name">disciplinary.history.search</field>
+        <field name="model">disciplinary.history</field>
+        <field eval="3" name="priority"/>
+        <field name="arch" type="xml">
+            <search string="Disciplinary History">
+                <field name="employee_id"/>
+                <field name="disciplinary_stage"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="disciplinary_history_tree_view">
+        <field name="name">disciplinary.history.tree.view</field>
+        <field name="model">disciplinary.history</field>
+        <field name="arch" type="xml">
+            <tree string="Disciplinary History" create="0" delete="1" > 
+                <field name="employee_id"/>
+                <field name="employee_barcode"/>
+                <field name="employee_pin"/>
+                    <field name="employee_pay_department"/>
+                    <field name="employee_pay_group"/>
+                    <field name="employee_pay_location"/>
+<!--                <field name="sequence"/>-->
+                <field name="date_diciplined"/>
+                <field name="disciplinary_stage"/>
+                <field name="reason_disciplinary"/>
+                <field name="disciplinary_document" widget="binary" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_disciplinary_stage" model="ir.actions.act_window">
+        <field name="name">Disciplinary Stages</field>
+        <field name="res_model">disciplinary.stage</field>
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="action_disciplinary_history" model="ir.actions.act_window">
+        <field name="name">Disciplinary History</field>
+        <field name="res_model">disciplinary.history</field>
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_disciplinary_history_search"/>
+    </record>
+
+    <menuitem id="menu_disciplinary" sequence="20" name="Disciplinary" parent="hr.menu_hr_root" />
+
+    <menuitem id="sub_menu_allocate" sequence="10" name="Allocate Disciplinary" parent="menu_disciplinary" action="wizard_allocate_disciplinary"/>
+
+    <menuitem id="sub_menu_history" sequence="20" name="Disciplinary History" parent="menu_disciplinary" action="action_disciplinary_history"/>
+
+<!--    <menuitem id="sub_menu_disciplinary_report" name="Disciplinary Report" parent="menu_disciplinary" action="wizard_disciplinary_report"/>-->
+
+    <menuitem id="menu_disciplinary_stage" name="Disciplinary" parent="hr.menu_human_resources_configuration"/>
+
+    <menuitem id="sub_menu_disciplinary_stage" name="Disciplinary Stages" parent="menu_disciplinary_stage" action="action_disciplinary_stage"/>
+
+  </data>
+</odoo>

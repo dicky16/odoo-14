@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_department_form_akm_grade">
+        <field name="name">view.department.form.akm.grade</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='manager_id']" position="after">
+                <field name="grade" string="Grade" invisible="1"/>
+                <field name="grade_id" string="Grade" class="oe_inline" options="{'no_create_edit':1}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_department_tree_akm_grade">
+        <field name="name">view.department.tree.akm.grade</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='manager_id']" position="after">
+                <field name="grade" string="Grade" invisible="1"/>
+                <field name="grade_id" string="Grade" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="akm_employee_form_grade">
+        <field name="name">akm.employee.form.grade</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='grade']" position="replace">
+                <field name="grade" string="Grade" invisible="1"/>
+                <field name="grade_id" string="Grade" class="oe_inline" options="{'no_create_edit':1}"/>
+            </xpath>
+            <xpath expr="//field[@name='section']" position="after">
+                <field name="facility_ids" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//field[@name='divisi']" position="attributes">
+                <attribute name="required">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="required">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sub_department']" position="attributes">
+                <attribute name="required">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='section']" position="attributes">
+                <attribute name="required">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_grade_tree_view">
+        <field name="name">hr.grade.tree.view</field>
+        <field name="model">hr.grade</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="salary_structure_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_grade_form_view">
+        <field name="name">hr.grade.form.view</field>
+        <field name="model">hr.grade</field>
+        <field name="arch" type="xml">
+            <form string="User Form">
+                <group>
+                    <group>
+                        <field name="sequence" class="oe_inline"/>
+                        <field name="name"/>
+                        <field name="type" class="oe_inline" required="1"/>
+                    </group>
+                    <group>
+                        <field name="salary_structure_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="facility_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_grade_action" model="ir.actions.act_window">
+        <field name="name">HR Grade</field>
+        <field name="res_model">hr.grade</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hr_grade_menu" name="HR Grade" parent="hr.menu_human_resources_configuration"
+              action="hr_grade_action"/>
+</odoo>

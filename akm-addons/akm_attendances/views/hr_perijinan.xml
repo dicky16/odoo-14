@@ -1,0 +1,25 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_perijinan_view">
+        <field name="name">hr.perijinan.view</field>
+        <field name="model">hr.perijinan</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="tipe"/>
+                <field name="description"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="status"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_perijinan_action" model="ir.actions.act_window">
+        <field name="name">Perijinan</field>
+        <field name="res_model">hr.perijinan</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="hr_perijinan_menu" name="Perijinan" parent="hr_attendance.menu_hr_attendance_manage_attendances"
+              action="hr_perijinan_action"/>
+</odoo>

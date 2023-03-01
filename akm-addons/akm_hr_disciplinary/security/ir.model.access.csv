@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_disciplinary_history,access_disciplinary_history,model_disciplinary_history,,1,1,1,0
+access_disciplinary_stage,access_disciplinary_stage,model_disciplinary_stage,,1,1,1,0
+access_disciplinary_wizard,access_disciplinary_wizard,model_disciplinary_wizard,,1,1,1,0

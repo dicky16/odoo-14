@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="menu_hr_employee_payroll" model="ir.ui.menu">
+            <field name="group_ids">False</field>
+        </record>
+        <record id="menu_hr_employee_payroll" model="ir.ui.menu">
+            <field name="group_ids" eval="[(4, ref('group_tech_nobody'))]"/>
+        </record>
+
+    </data>
+</odoo>

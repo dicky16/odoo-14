@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 OpenSynergy Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+    <data>
+        <record id="payroll_add_bpjs" model="hr.payslip.add">
+            <field name="name">BPJS</field>
+        </record>
+        <record id="input_type_anggota" model="hr.payslip.add">
+            <field name="name">ANGGOTA</field>
+        </record>
+
+        <record id="input_type_koperasi" model="hr.payslip.input.type">
+            <field name="name">Koperasi</field>
+            <field name="code">KOP</field>
+        </record>
+        <record id="input_type_kompensasi" model="hr.payslip.input.type">
+            <field name="name">Kompensasi</field>
+            <field name="code">KOM</field>
+        </record>
+
+        <record id="structure_employee_premi" model="hr.payroll.structure">
+            <field name="name">Premi Bulanan up</field>
+            <field name="type_id" ref="hr_contract.structure_type_employee"/>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="salary_rule_premi" model="hr.salary.rule">
+            <field name="name">Premi Bulanan up</field>
+            <field name="code">PREMI</field>
+            <field name="sequence" eval="100"/>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="structure_employee_premi"/>
+            <field name="amount_python_compute">
+result=0
+ijin=[0,0,0,0]
+sakit=[0,0,0,0]
+for line in payslip.worked_days_line_ids:
+    if line.week==1 and line.work_entry_type_id.code in ['A','I','IP','IM']:
+        ijin[0] +=line.number_of_days
+    if line.week==2 and line.work_entry_type_id.code in ['A','I','IP','IM']:
+        ijin[1] +=line.number_of_days
+    if line.week==3 and line.work_entry_type_id.code in ['A','I','IP','IM']:
+        ijin[2] +=line.number_of_days
+    if line.week==4 and line.work_entry_type_id.code in ['A','I','IP','IM']:
+        ijin[3] +=line.number_of_days
+
+    if line.week==1 and line.work_entry_type_id.code in ['SD','S']:
+        sakit[0] +=line.number_of_days
+    if line.week==2 and line.work_entry_type_id.code in ['SD','S']:
+        sakit[1] +=line.number_of_days
+    if line.week==3 and line.work_entry_type_id.code in ['SD','S']:
+        sakit[2] +=line.number_of_days
+    if line.week==4 and line.work_entry_type_id.code in ['SD','S']:
+        sakit[3] +=line.number_of_days
+
+totpremi=0
+for i in range(0,3):
+    prosen = 100
+    if ijin[i]==1:
+        prosen = prosen-50
+    elif ijin[i]>1:
+        prosen = prosen-100
+    if sakit[i]>=3:
+        prosen = prosen-50
+    if prosen>=0:
+        prosen = prosen
+    else:
+        prosen = 0
+    totpremi +=prosen
+
+nominal_premi = employee.nominal_premi
+result = totpremi*nominal_premi/100
+#result = ijin[1]
+            </field>
+        </record>
+
+        <record id="structure_hariall_all" model="hr.payroll.structure">
+            <field name="name">Harian All</field>
+            <field name="type_id" ref="hr_contract.structure_type_employee"/>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="salary_rule_gapok" model="hr.salary.rule">
+            <field name="name">Gaji Pokok</field>
+            <field name="code">GAPOK</field>
+            <field name="sequence" eval="1"/>
+            <field name="category_id" ref="hr_payroll.BASIC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="structure_hariall_all"/>
+            <field name="amount_python_compute">
+wh=0
+wage=contract.hourly_wage
+if payslip.worked_days_line_ids:
+    for line in payslip.worked_days_line_ids:
+        if not line.work_entry_type_id.is_leave:
+            wh += line.number_of_hours
+result=wh * wage
+            </field>
+        </record>
+        <record id="salary_rule_bpjs" model="hr.salary.rule">
+            <field name="name">BPJS</field>
+            <field name="code">BPJS</field>
+            <field name="sequence" eval="150"/>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="structure_hariall_all"/>
+            <field name="amount_python_compute">
+result=employee.iuran_tk + employee.iuran_kes
+            </field>
+        </record>
+
+        <record id="salary_rule_nett" model="hr.salary.rule">
+            <field name="name">THP</field>
+            <field name="code">NET</field>
+            <field name="sequence" eval="200"/>
+            <field name="category_id" ref="hr_payroll.NET"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="structure_hariall_all"/>
+            <field name="amount_python_compute">
+#kop = inputs.KOP.amount if inputs.KOP else False
+#kom = inputs.KOM.amount if inputs.KOM else False
+addition = 0
+if payslip.input_line_ids:
+    for input in payslip.input_line_ids:
+        addition += input.amount
+result = categories.BASIC + categories.ALW - categories.DED + addition
+            </field>
+        </record>
+    </data>
+</openerp>

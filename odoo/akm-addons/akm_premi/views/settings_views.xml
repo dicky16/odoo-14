@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form_premi" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.account.premi</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="30"/>
+            <field name="inherit_id" ref="hr.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='employee_rights_setting_container']" position="after" >
+                    <h2>Premi</h2>
+                    <div class="row mt16 o_settings_container" name="premi_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="giro_account">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Nominal Premi</span>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                <div class="text-muted">
+<!--                                    Setting for receivable and payable giro account-->
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="nominal_premi" class="col-lg-3 o_light_label"/>
+                                        <field name="nominal_premi" context="{'active_test': False}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="akm_employee_form_payroll">
+            <field name="name">akm.employee.form.payroll</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="akm_employees.akm_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='grup_borongan']" position="after">
+                    <field name="iuran_anggota" class="oe_inline" string="Iuran SPSI"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

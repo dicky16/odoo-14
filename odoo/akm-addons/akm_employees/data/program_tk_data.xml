@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Resource: program.tk -->
+<!--        ('jkk', 'JKK'), ('jht', 'JHT'), ('jkm', 'JKM'), ('jp', 'JP')-->
+        <record id="jkk" model="program.tk">
+            <field name="name">JKK</field>
+        </record>
+        <record id="jht" model="program.tk">
+            <field name="name">JHT</field>
+        </record>
+        <record id="jkm" model="program.tk">
+            <field name="name">JKM</field>
+        </record>
+        <record id="jp" model="program.tk">
+            <field name="name">JP</field>
+        </record>
+
+
+        <record id="group_a" model="employee.group">
+            <field name="name">A</field>
+        </record>
+        <record id="group_b" model="employee.group">
+            <field name="name">B</field>
+        </record>
+        <record id="group_c" model="employee.group">
+            <field name="name">C</field>
+        </record>
+        <record id="group_d" model="employee.group">
+            <field name="name">D</field>
+        </record>
+        <record id="group_e" model="employee.group">
+            <field name="name">E</field>
+        </record>
+        <record id="group_f" model="employee.group">
+            <field name="name">F</field>
+        </record>
+        <record id="group_g" model="employee.group">
+            <field name="name">G</field>
+        </record>
+    </data>
+</odoo>

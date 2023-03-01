@@ -1,0 +1,39 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_flag_sts_view">
+        <field name="name">hr.flag.sts.view</field>
+        <field name="model">hr.flag.sts</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_flag_sts_form">
+        <field name="name">hr.flag.sts.form</field>
+        <field name="model">hr.flag.sts</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="float-left">
+                        <label for="name" class="oe_edit_only oe_inline">
+                            Name
+                        </label>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_flag_sts_action" model="ir.actions.act_window">
+        <field name="name">Flag Sts</field>
+        <field name="res_model">hr.flag.sts</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hr_flag_sts_menu" name="Flag Sts" parent="hr_attendance.menu_hr_attendance_root"
+              action="hr_flag_sts_action"/>
+</odoo>

@@ -1,0 +1,48 @@
+<odoo>
+    <record id="hr_work_entry_view_form_overtime" model="ir.ui.view">
+        <field name="name">hr.work.entry.form.overtime</field>
+        <field name="model">hr.work.entry</field>
+        <field name="inherit_id" ref="hr_work_entry.hr_work_entry_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div" position="before">
+<!--                <div>-->
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                            name="action_view_overtime"
+                            icon="fa-th-list"
+                            type="object">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="overtime_count"/></span>
+                                <span class="o_stat_text"> Overtime</span>
+                            </div>
+                        </button>
+                    </div>
+<!--                </div>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_work_entry_view_search_overtime" model="ir.ui.view">
+        <field name="name">hr.work.entry.filter.overtime</field>
+        <field name="model">hr.work.entry</field>
+        <field name="inherit_id" ref="hr_work_entry.hr_work_entry_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='date_filter']" position="before">
+                <filter name="9_no_overtime" string="9-No overtime" domain="[
+                    ('duration', '&gt;=', 9),
+                    ('overtime_count', '=', 0)]"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_work_entry_view_tree_overtime" model="ir.ui.view">
+        <field name="name">hr.work.entry.tree.overtime</field>
+        <field name="model">hr.work.entry</field>
+        <field name="inherit_id" ref="akm_attendance_correction.hr_work_entry_view_tree_akm"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_detail']" position="after">
+                <field name="overtime_count" string="Overtime" invisible="1"/>
+                <button string="" name="action_view_overtime" type="object" icon="fa-gg" attrs="{'invisible': [('overtime_count', '=', 0)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

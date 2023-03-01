@@ -1,0 +1,157 @@
+<odoo>
+    <record model="ir.ui.view" id="department_sub_view">
+        <field name="name">department.sub.view</field>
+        <field name="model">department.sub</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="pay_location_view">
+        <field name="name">pay.location.view</field>
+        <field name="model">pay.location</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="pay_department_view">
+        <field name="name">pay.department.view</field>
+        <field name="model">pay.department</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" default_order="name" >
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="pay_group_view">
+        <field name="name">pay.group.view</field>
+        <field name="model">pay.group</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_divisi_view">
+        <field name="name">hr.divisi.view</field>
+        <field name="model">hr.divisi</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_borongan_view">
+        <field name="name">hr.borongan.view</field>
+        <field name="model">hr.borongan</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="user_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_koperasi_view">
+        <field name="name">hr.koperasi.view</field>
+        <field name="model">hr.koperasi</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_koperasi_action" model="ir.actions.act_window">
+        <field name="name">Koperasi</field>
+        <field name="res_model">hr.koperasi</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="hr_borongan_action" model="ir.actions.act_window">
+        <field name="name">Grup Borongan</field>
+        <field name="res_model">hr.borongan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_section_view">
+        <field name="name">hr.section.view</field>
+        <field name="model">hr.section</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_section_action" model="ir.actions.act_window">
+        <field name="name">Section</field>
+        <field name="res_model">hr.section</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="hr_divisi_action" model="ir.actions.act_window">
+        <field name="name">Divisi</field>
+        <field name="res_model">hr.divisi</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="pay_group_action" model="ir.actions.act_window">
+        <field name="name">Pay Group</field>
+        <field name="res_model">pay.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="pay_department_action" model="ir.actions.act_window">
+        <field name="name">Pay Department</field>
+        <field name="res_model">pay.department</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="department_sub_action" model="ir.actions.act_window">
+        <field name="name">Sub Departemen</field>
+        <field name="res_model">department.sub</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="pay_location_action" model="ir.actions.act_window">
+        <field name="name">Pay Location</field>
+        <field name="res_model">pay.location</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="pay_info_menu" name="Pay Info" parent="hr.menu_human_resources_configuration"
+              groups="hr.group_hr_manager"/>
+        <menuitem id="pay_location_menu" name="Pay Location" parent="pay_info_menu"
+                  action="pay_location_action"/>
+        <menuitem id="pay_department_menu" name="Pay Department" parent="pay_info_menu"
+                  action="pay_department_action"/>
+        <menuitem id="pay_group_menu" name="Pay Group" parent="pay_info_menu"
+                  action="pay_group_action"/>
+
+    <menuitem
+        id="hr.menu_human_resources_configuration_employee"
+        name="Employee"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_manager"
+        sequence="1"/>
+        <menuitem id="department_sub_menu" name="Sub Departemen" parent="hr.menu_human_resources_configuration_employee"
+                  action="department_sub_action"/>
+        <menuitem id="hr_divisi_menu" name="Divisi" parent="hr.menu_human_resources_configuration_employee"
+                  action="hr_divisi_action"/>
+        <menuitem id="hr_section_menu" name="Section" parent="hr.menu_human_resources_configuration_employee"
+                  action="hr_section_action"/>
+
+        <menuitem id="hr_borongan_menu" name="Grup Borongan" parent="hr.menu_human_resources_configuration_employee"
+                  action="hr_borongan_action"/>
+        <menuitem id="hr_koperasi_menu" name="Koperasi" parent="hr.menu_human_resources_configuration_employee"
+                  action="hr_koperasi_action"/>
+</odoo>

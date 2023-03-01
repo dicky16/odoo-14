@@ -1,0 +1,25 @@
+{
+    'name': 'Overtime Request',
+    'summary': """Employee Overtime Request""",
+    'description': """Allow employee overtime request""",
+    "sequence": 1,
+    "author": u"Yustaf Pramsistya",
+    "website": u"www.alugarainovasi.com",
+    "version": '1.0',
+    'category': 'HR',
+    'depends': ['akm_employees','hr_work_entry','akm_attendances','akm_attendance_correction'],
+    'license': 'LGPL-3',
+    'data': [
+        'data/overtime_data.xml',
+        'views/overtime_request_view.xml',
+        'views/akm_work_entries_view.xml',
+        'wizards/reject_overtime_wizard.xml',
+        'security/ir.model.access.csv',
+    ],
+    'demo': [],
+    'images': [],
+    'application': True,
+    'installable': True,
+    'auto_install': False,
+}
+# -*- coding: utf-8 -*-

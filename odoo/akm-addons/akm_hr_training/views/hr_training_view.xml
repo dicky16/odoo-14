@@ -1,0 +1,98 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_training_view">
+        <field name="name">hr.training.view</field>
+        <field name="model">hr.training</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="pay_location" optional="hide"/>
+                <field name="pay_department" optional="hide"/>
+                <field name="pay_group" optional="hide"/>
+                <field name="bagian" optional="hide"/>
+                <field name="pembicara" optional="hide"/>
+                <field name="training_type" optional="hide"/>
+                <field name="jumlah_peserta" optional="hide"/>
+                <field name="date" optional="hide"/>
+                <field name="start_time" widget="float_time" optional="hide"/>
+                <field name="end_time" widget="float_time" optional="hide"/>
+                <field name="location" optional="hide"/>
+                <field name="note" optional="hide"/>
+                <field name="document" optional="hide" widget="binary" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_training_form">
+        <field name="name">hr.training.form</field>
+        <field name="model">hr.training</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="pay_location"/>
+                            <field name="pay_department"/>
+                            <field name="pay_group"/>
+                            <field name="bagian"/>
+                            <field name="pembicara"/>
+                            <field name="training_type"/>
+                            <field name="jumlah_peserta"/>
+                            <field name="date"/>
+                            <field name="start_time" widget="float_time"/>
+                            <field name="end_time" widget="float_time"/>
+                            <field name="location"/>
+                            <field name="note"/>
+                            <field name="document"/>
+                        </group>
+                        <group>
+                            <field name="image1" widget="image" class="oe_avatar" />
+                            <field name="note1"/>
+                            <field name="image2" widget="image" class="oe_avatar" />
+                            <field name="note2"/>
+                            <field name="image3" widget="image" class="oe_avatar" />
+                            <field name="note3"/>
+                            <field name="daftar_hadir"/>
+                        </group>
+                            <field name="employee_id" >
+                                <tree>
+                                    <field name="pin"/>
+                                    <field name="barcode"/>
+                                    <field name="name"/>
+                                    <field name="department_id"/>
+                                    <field name="pay_group"/>
+                                </tree>
+                            </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_training_type_view">
+        <field name="name">hr.training.type.view</field>
+        <field name="model">hr.training.type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_training_action" model="ir.actions.act_window">
+        <field name="name">Training</field>
+        <field name="res_model">hr.training</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="hr_training_type_action" model="ir.actions.act_window">
+        <field name="name">Training Type</field>
+        <field name="res_model">hr.training.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hr_training_menu" name="Training" parent="hr.menu_hr_employee_payroll"
+              action="hr_training_action"/>
+    <menuitem id="hr_training_type_menu" name="Training Type" parent="hr.menu_human_resources_configuration"
+              action="hr_training_type_action"/>
+</odoo>

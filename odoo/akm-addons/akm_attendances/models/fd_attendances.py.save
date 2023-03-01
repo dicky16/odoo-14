@@ -1,0 +1,97 @@
+from odoo import models, fields, api, exceptions, _
+import requests
+import json
+from datetime import datetime, timedelta
+import math
+from pytz import timezone, UTC, utc
+
+
+class FdAttendances(models.Model):
+    _name = 'fd.attendances'
+
+    attendance_id = fields.Integer(string="Id")
+    emp_code = fields.Char()
+    punch_time = fields.Datetime()
+    punch_state = fields.Integer()
+    punch_state_display = fields.Char()
+    work_code = fields.Char()
+    area_alias = fields.Char()
+    terminal_sn = fields.Char()
+    terminal_alias = fields.Char()
+    upload_time = fields.Datetime()
+    date_fd = fields.Date(string='Date in Face Detector')
+    employee_id = fields.Many2one("hr.employee", string="Employee id")
+    name = fields.Char(string="Nama")
+    pin = fields.Char(string="NIK", compute="_compute_pin")
+    barcode = fields.Char(string="Old NIK", readonly="1")
+    pay_group = fields.Many2one('pay.group', string='Group', readonly="1")
+    pay_department = fields.Many2one('hr.department', string='Pay Department', readonly="1")
+
+    @api.depends("name")
+    def _compute_pin(self):
+        for record in self:
+            record.pin = record.employee_id.pin
+            record.barcode = record.employee_id.barcode
+            record.pay_group = record.employee_id.pay_group
+            record.pay_department = record.employee_id.pay_department
+
+
+    def get_jwt(self):
+        url = "http://192.168.24.25:80/jwt-api-token-auth/"
+
+        payload = json.dumps({
+            "username": "admin",
+            "password": "AKM2022;"
+        })
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        response = requests.request("POST", url, headers=headers, data=payload)
+        data = response.json()
+        return data['token']
+
+    def get_data(self, url):
+        base_url = "http://192.168.24.25:80/" + url
+        payload = {}
+        token = self.get_jwt()
+        headers = {
+            'Authorization': 'JWT' + ' ' + token,
+        }
+        response = requests.request("GET", base_url, headers=headers, data=payload)
+        return response.json()
+
+    def get_fd_attendance(self):
+        now = datetime.now() - timedelta(days=1)
+        url = "iclock/api/transactions/"
+        data = self.get_data(url)
+        total_page = math.ceil(data['count'] / 10)
+        data_attendances = []
+        tz = self.env.user.tz
+
+        for i in range(total_page):
+            page_url = url + "?page=" + str(i) + "&?start_time=" + now.strftime("%Y-%m-%d") + "%20" + now.strftime(
+                "%H:%M:%S")
+            data = self.get_data(page_url)
+            data_attendances.extend(data['data'])
+
+        for i in data_attendances:
+            check_attendance = self.env['fd.attendances'].search_count([('attendance_id', '=', str(i['id']))])
+            if check_attendance == 0:
+                datetime_api = datetime.strptime(i['punch_time'], '%Y-%m-%d %H:%M:%S')
+                employee_id = self.env['hr.employee'].search([('employee_code', '=', str(i['emp_code']))]).id
+                apply_date_tz = str(timezone(tz or 'UTC').localize(datetime_api).astimezone(utc))[:19]
+                self.create({
+                    'attendance_id': i['id'],
+                    'emp_code': i['emp_code'],
+                    'name': first_name + ' ' + last_name,
+		    'employee_id': employee_id,
+                    'punch_time': apply_date_tz,
+                    'punch_state': i['punch_state'],
+                    'punch_state_display': i['punch_state_display'],
+                    'work_code': i['work_code'],
+                    'area_alias': i['area_alias'],
+                    'terminal_sn': i['terminal_sn'],
+                    'terminal_alias': i['terminal_alias'],
+                    'upload_time': i['upload_time'],
+                    'date_fd': str(datetime.strptime(i['punch_time'], '%Y-%m-%d %H:%M:%S'))[:10]
+                })

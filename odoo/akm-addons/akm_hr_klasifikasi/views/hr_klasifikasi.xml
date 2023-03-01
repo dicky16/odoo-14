@@ -1,0 +1,155 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_palevel_view">
+        <field name="name">hr.palevel.view</field>
+        <field name="model">hr.palevel</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_appraisal_palevel">
+        <field name="name">hr.appraisal.palevel</field>
+        <field name="model">hr.appraisal</field>
+        <field name="inherit_id" ref="akm_hr_appraisal.view_hr_appraisal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group/field[@name='manager_ids']" position="after">
+                <field name="employee_pin"/>
+                <field name="barcode"/>
+                <field name="pay_department"/>
+                <field name="pay_group"/>
+                <field name="pay_location"/>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='job_id']" position="before">
+                <field name="note"/>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='last_appraisal_id']" position="before">
+                <field name="periode2"/>
+                <field name="appraisal_type" required="1" attrs="{'readonly' : [('state', '=', 'pending')]}"/>
+                <field name="pa_level" required="1" attrs="{'readonly' : [('state', '=', 'pending')]}"/>
+                <field name="start_date" attrs="{'readonly' : [('state', '=', 'pending')]}"/>
+                <field name="end_date" attrs="{'readonly' : [('state', '=', 'pending')]}"/>
+                <xpath expr="//sheet/group/group/field[@name='date_close']" position="move"/>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='pa_level']" position="after">
+                <xpath expr="//sheet/group/group/field[@name='score_number']" position="move"/>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='date_close']" position="attributes">
+                <attribute name="string">Appraisal Date</attribute>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='manager_ids']" position="attributes">
+                <attribute name="attrs">{'readonly' : [('state', '=', 'pending')]}</attribute>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='score_number']" position="attributes">
+                <attribute name="attrs">{'readonly' : ['|',('state', '=', 'pending'), ('is_period', '=', True)]}
+                </attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='assessment_note']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='assessment_note']" position="after">
+                <xpath expr="//sheet/group/group/field[@name='job_id']" position="move"/>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='score_number']" position="after">
+                <field name="periode_1" attrs="{'invisible': [('is_period', '=', False)]}"/>
+                <field name="periode_2" attrs="{'invisible': [('is_period', '=', False)]}"/>
+                <field name="periode_3" attrs="{'invisible': [('is_period', '=', False)]}"/>
+                <field name="periode_4" attrs="{'invisible': [('is_period', '=', False)]}"/>
+                <field name="periode_5" attrs="{'invisible': [('is_period', '=', False)]}"/>
+                <field name="periode_6" attrs="{'invisible': [('is_period', '=', False)]}"/>
+                <field name="is_period" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_appraisal_list" model="ir.ui.view">
+        <field name="name">hr.appraisal.list</field>
+        <field name="model">hr.appraisal</field>
+        <field name="inherit_id" ref="akm_hr_appraisal.view_hr_appraisal_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="multi_edit">1</attribute>
+            </xpath>
+            <xpath position="attributes" expr="//field[@name='state']">
+                <attribute name="widget">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_pin']" position="after">
+                <field name="barcode"/>
+            </xpath>
+            <xpath expr="//field[@name='pay_department']" position="after">
+                <field name="periode2" optional="hide"/>
+                <field name="appraisal_type" optional="hide" attrs="{'readonly':[('state', '!=', 'new')]}"/>
+                <field name="pa_level" optional="hide"/>
+                <field name="start_date" optional="hide" attrs="{'readonly':[('state', '!=', 'new')]}"/>
+                <field name="end_date" optional="hide" attrs="{'readonly':[('state', '!=', 'new')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='date_close']" position="attributes">
+                <attribute name="widget">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="note" optional='hide' />
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state', '!=', 'new')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='pa_level']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state', '!=', 'new')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='score_number']" position="attributes">
+                <attribute name="attrs">{'readonly' : ['|',('state', '=', 'pending'), ('is_period', '=', True)]}
+                </attribute>
+                <attribute name="optional">hide</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_close']" position="after">
+                <field name="periode_1" optional="hide"
+                       attrs="{'readonly':['|',('state', '!=', 'new'), ('is_period','=', False)]}"/>
+                <field name="periode_2" optional="hide"
+                       attrs="{'readonly':['|',('state', '!=', 'new'), ('is_period','=', False)]}"/>
+                <field name="periode_3" optional="hide"
+                       attrs="{'readonly':['|',('state', '!=', 'new'), ('is_period','=', False)]}"/>
+                <field name="periode_4" optional="hide"
+                       attrs="{'readonly':['|',('state', '!=', 'new'), ('is_period','=', False)]}"/>
+                <field name="periode_5" optional="hide"
+                       attrs="{'readonly':['|',('state', '!=', 'new'), ('is_period','=', False)]}"/>
+                <field name="periode_6" optional="hide"
+                       attrs="{'readonly':['|',('state', '!=', 'new'), ('is_period','=', False)]}"/>
+                <field name="is_period" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='assessment_note']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state', '!=', 'new')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_close']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state', '!=', 'new')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_close']" position="attributes">
+                <attribute name="string">Appraisal Date</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="akm_appraisal_group">
+        <field name="name">akm.appraisal.group</field>
+        <field name="model">hr.appraisal</field>
+        <field name="inherit_id" ref="akm_hr_appraisal.hr_appraisal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='groupby_state']" position="after">
+                <filter name="groupby_appraisal_type" context="{'group_by': 'appraisal_type'}"/>
+                <filter name="groupby_date_close" context="{'group_by': 'date_close'}" string="Appraisal Date" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_palevel_action" model="ir.actions.act_window">
+        <field name="name">PA Level</field>
+        <field name="res_model">hr.palevel</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hr_palevel_menu" name="PA Level" parent="akm_hr_appraisal.menu_hr_appraisal_configuration"
+              action="hr_palevel_action"/>
+
+</odoo>
+

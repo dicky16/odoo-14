@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Resource: hr.grade.facility -->
+        <record id="facility_mobil" model="hr.grade.facility">
+            <field name="name">Mobil</field>
+        </record>
+        <record id="facility_motor" model="hr.grade.facility">
+            <field name="name">Motor</field>
+        </record>
+        <record id="facility_bonus" model="hr.grade.facility">
+            <field name="name">Bonus</field>
+        </record>
+        <record id="facility_tunjangan" model="hr.grade.facility">
+            <field name="name">Tunjangan</field>
+        </record>
+        <record id="facility_ruangan" model="hr.grade.facility">
+            <field name="name">Ruangan</field>
+        </record>
+        <record id="facility_makan" model="hr.grade.facility">
+            <field name="name">Makan Siang</field>
+        </record>
+        <record id="facility_mess" model="hr.grade.facility">
+            <field name="name">Mess</field>
+        </record>
+        <record id="facility_bpjs" model="hr.grade.facility">
+            <field name="name">BPJS</field>
+        </record>
+        <record id="facility_asuransi" model="hr.grade.facility">
+            <field name="name">Asuransi Swasta</field>
+        </record>
+        <record id="facility_email" model="hr.grade.facility">
+            <field name="name">Email</field>
+        </record>
+        <record id="facility_laptop" model="hr.grade.facility">
+            <field name="name">Laptop</field>
+        </record>
+        <record id="facility_wifi" model="hr.grade.facility">
+            <field name="name">Wifi</field>
+        </record>
+        <record id="facility_seragam" model="hr.grade.facility">
+            <field name="name">Seragam</field>
+        </record>
+    </data>
+</odoo>

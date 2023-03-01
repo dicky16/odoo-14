@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+acces_hr_palevel,access_hr_palevel,model_hr_palevel,,1,1,1,1
+acces_hr_appraisal_type,access_hr_appraisal_type,model_hr_appraisal_type,,1,1,1,1

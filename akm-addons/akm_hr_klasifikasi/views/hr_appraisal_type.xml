@@ -1,0 +1,20 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_appraisal_type_view">
+        <field name="name">hr.appraisal.type.view</field>
+        <field name="model">hr.appraisal.type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_appraisal_type_action" model="ir.actions.act_window">
+        <field name="name">Appraisal Type</field>
+        <field name="res_model">hr.appraisal.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hr_appraisal_type_menu" name="Appraisal Type" parent="akm_hr_appraisal.menu_hr_appraisal_configuration"
+              action="hr_appraisal_type_action"/>
+</odoo>

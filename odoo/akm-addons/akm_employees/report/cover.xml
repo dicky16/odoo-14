@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_print_cover" model="ir.actions.report">
+        <field name="name">Cover</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">akm_employees.print_cover</field>
+        <field name="report_file">akm_employees.print_cover</field>
+        <field name="print_report_name">'Cover - %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_hr_employee"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="print_cover">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <center>
+                        <img t-if="o.image_1920" t-att-src="image_data_uri(o.image_1920)"
+                             style="height:180px;width:180px;"
+                             alt="Personal Photo"/>
+                    </center>
+                    <br/>
+                    <table style="border-collapse: collapse; width: 100%;" border="1">
+                        <tbody>
+                            <tr>
+                                <td style="width: 100%;" colspan="4">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;">&#160;</td>
+                                <td style="width: 25%;font-size:24px;">
+                                    <strong>NAMA</strong>
+                                </td>
+                                <td style="width: 1%;font-size:24px;">:</td>
+                                <td style="width: 46%;font-size:24px;">
+                                    <span t-field="o.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;">&#160;</td>
+                                <td style="width: 25%;font-size:24px;">
+                                    <strong>NIK</strong>
+                                </td>
+                                <td style="width: 1%;font-size:24px;">:</td>
+                                <td style="width: 46%;font-size:24px;">
+                                    <span style="margin-right:2px;" t-field="o.pin"/>
+                                    <span style="margin-left:2px;margin-right:2px;">/</span>
+                                    <span style="margin-left:2px;margin-right:2px;" t-field="o.barcode"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;">&#160;</td>
+                                <td style="width: 25%;font-size:24px;">
+                                    <strong>JABATAN / SECTION</strong>
+                                </td>
+                                <td style="width: 1%;font-size:24px;">:</td>
+                                <td style="width: 46%;font-size:24px;">
+                                    <span style="margin-right:2px;" t-field="o.job_id"/>
+                                    <span style="margin-left:2px;margin-right:2px;">/</span>
+                                    <span style="margin-left:2px;margin-right:2px;" t-field="o.section"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;">&#160;</td>
+                                <td style="width: 25%;font-size:24px;">
+                                    <strong>TGL MASUK</strong>
+                                </td>
+                                <td style="width: 1%;font-size:24px;">:</td>
+                                <td style="width: 46%;font-size:24px;">
+                                    <span t-field="o.join1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;">&#160;</td>
+                                <td style="width: 25%;font-size:24px;">
+                                    <strong>BUSINESS UNIT</strong>
+                                </td>
+                                <td style="width: 1%;font-size:24px;">:</td>
+                                <td style="width: 46%;font-size:24px;">
+                                    <span t-field="o.address_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 100%;" colspan="4">&#160;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <center>
+                        <b>
+                            <h3 style="font-size:24px;">Kelengkapan Dokumen Karyawan :</h3>
+                        </b>
+                    </center>
+                    <table style="border-collapse: collapse; width: 100%;" border="1">
+                        <tbody>
+                            <tr>
+                                <td style="width: 40%;">
+                                    <div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/>
+                                </td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Surat Lamaran</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;">
+                                    <div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/>
+                                </td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Bio Data</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;">
+                                    <div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/>
+                                </td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Hasil Tes</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;">
+                                    <div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/>
+                                </td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Perjanjian Kerja</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;">
+                                    <div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/>
+                                </td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>SK Pengangkatan</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Curriculum Vitae</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Pas Foto</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Copy KTP</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Copy NPWP</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Jamsostek / BPJS</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Copy Ijazah</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Copy Transkrip Nilai</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Copy Kartu Keluarga</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Copy SKCK</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Copy Surat Sehat</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Copy Referensi Kerja</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Foto Copy Sertifikat Pelatihan</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>List Pemeriksaan Calon Karyawan</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Form Interview</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Form Serah Terima Kontrak</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40%;"><div style="width: 15px; height: 15px; border: 1px solid black; margin-left: auto;"/></td>
+                                <td style="width: 60%;padding-left:4px;font-size:18px;">
+                                    <strong>Surat Pernyataan</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

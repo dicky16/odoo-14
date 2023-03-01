@@ -1,0 +1,201 @@
+<odoo>
+    <record model="ir.ui.view" id="akm_employee_tree">
+        <field name="name">akm.employee.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="pin" string="NIK" groups="hr.group_hr_manager" />
+                <field name="barcode" string="Old NIK"/>
+            </xpath>
+            <xpath expr="//field[@name='work_phone']" position="replace">
+                <field name="pay_group"/>
+            </xpath>
+            <xpath expr="//field[@name='work_email']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="replace">
+                <field name="pay_department"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="akm_departure_wizard_view_form">
+        <field name="name">akm.departure.wizard.view.form</field>
+        <field name="model">hr.departure.wizard</field>
+        <field name="inherit_id" ref="hr.hr_departure_wizard_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='departure_date']" position="after">
+                <field name="document_sign"/>
+                <field name="document_date"/>
+            </xpath>
+            <xpath expr="//field[@name='departure_date']" position="attributes">
+                <attribute name="string">Tanggal Resign</attribute>
+            </xpath>
+            <xpath expr="//field[@name='departure_reason']" position="replace">
+                <field name="departure_reason"/>
+            </xpath>
+            <xpath expr="//button[@special='cancel']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="akm_employee_form">
+        <field name="name">akm.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='identification_group']" position="replace">
+                <group string="Attendance" name="identification_group">
+                    <field name="pin" required="1"/>
+                    <field name="barcode" required="1"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='pin']" position="attributes">
+                <attribute name="string">NIK</attribute>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="%(hr.hr_departure_wizard_action)d" string="Termination" type="action"/>
+                <button name="akm_archive_employee" string="Archive" type="object"
+                        attrs="{'invisible': [('active', '=', False)]}"/>
+                <button name="akm_unarchive_employee" string="Unarchive" type="object"
+                        attrs="{'invisible': [('active', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='identification_id']" position="attributes">
+                <attribute name="string">Nomor KTP</attribute>
+            </xpath>
+            <xpath expr="//field[@name='identification_id']" position="after">
+                <field name="ktp_address"/>
+                <field name="ktp_kota"/>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="invisible" >True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="invisible" >True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='coach_id']" position="attributes">
+                <attribute name="invisible" >True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="string">Jabatan</attribute>
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="attributes">
+                <attribute name="string">Telpon 1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="after">
+                <field name="mobile"/>
+            </xpath>
+            <xpath position="attributes" expr="//field[@name='resource_calendar_id']">
+                <attribute name="string">Work Desc</attribute>
+            </xpath>
+            <xpath expr="//group[@name='active_group']" position="before">
+                <group name="structure" string="Structure">
+                    <field name="grade" required="1" class="oe_inline"/>
+                    <field name="divisi" class="oe_inline"
+                           attrs="{'required': [('grade', 'in', ['division','department','sub_department','section','non'])]}"/>
+                    <field name="department_id" class="oe_inline"
+                           attrs="{'required': [('grade', 'in', ['department','sub_department','section','non'])]}"/>
+                    <field name="sub_department" class="oe_inline"
+                           attrs="{'required': [('grade', 'in', ['sub_department','section','non'])]}"/>
+                    <field name="section" class="oe_inline"
+                           attrs="{'required': [('grade', 'in', ['section','non'])]}"/>
+                </group>
+            </xpath>
+            <xpath expr="//group[@name='departure']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//group[@name='active_group']" position="after">
+                <group name="general" string="General">
+                    <field name="pay_location" required="1" class="oe_inline"/>
+                    <field name="pay_group" required="1" class="oe_inline"/>
+                    <field name="pay_department" required="1" class="oe_inline"/>
+                    <field name="status" class="oe_inline"/>
+                    <field name="koperasi" class="oe_inline"/>
+                </group>
+                <group name="join_date" string="Join Date">
+                    <field name="join1" required="1" class="oe_inline" string="Tgl Masuk Pertama"/>
+                    <field name="join2" required="1" class="oe_inline" string="Tgl Masuk Join"/>
+                    <field name="periode1"/>
+                    <field name="periode2"/>
+                    <field name="age1"/>
+                    <field name="age2"/>
+                </group>
+                <group name="indo_tax" string="Taxation">
+                    <field name="npwp" class="oe_inline"/>
+                    <field name="pph21" class="oe_inline" invisible="0"/>
+                    <field name="ptkp_category_id" class="oe_inline" invisible="1"/>
+                </group>
+                <group name="departure" string="Termination" >
+                    <field name="departure_reason" string="Termination Reason"/>
+                    <field name="departure_date" string="Termination Date"/>
+                    <field name="departure_description" string="Description"/>
+                    <field name="document_sign"/>
+                    <field name="document_date" class="oe_inline"/>
+                </group>
+                <group name="payroll_info" string="Payroll Info">
+                    <field name="core_proses" class="oe_inline"/>
+                    <field name="hr_bonus"/>
+                    <field name="hr_costing" class="oe_inline"/>
+                    <field name="hr_group" class="oe_inline" invisible="1"/>
+                    <field name="hr_group_id" class="oe_inline"/>
+                    <field name="grup_borongan" class="oe_inline"/>
+                    <field name="iuran_spsi" class="oe_inline" invisible="1"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="replace">
+                <field name="job_id" required="0" class="oe_inline"/>
+                <field name="parent_id" class="oe_inline"/>
+            </xpath>
+            <xpath expr="//group[@name='identification_group']" position="before">
+                <group string="BPJS TK" name="bpjs_ketenagakerjaan">
+<!--                    <field name="bpjs_ids" nolabel="1" editable="bottom"/>-->
+                    <field name="no_bpjs_tk" class="oe_inline"/>
+                    <field name="program_ids" widget="many2many_tags"/>
+                    <field name="iuran_tk" class="oe_inline"/>
+                    <field name="image_tk" widget="image" class="oe_avatar"/>
+                </group>
+                <group string="BPJS Kes" name="bpjs_ketenagakerjaan">
+<!--                    <field name="bpjs_ids" nolabel="1" editable="bottom"/>-->
+                    <field name="no_bpjs_kes" class="oe_inline"/>
+                    <field name="status_kes" class="oe_inline"/>
+                    <field name="iuran_kes" class="oe_inline"/>
+                    <field name="image_kes" widget="image" class="oe_avatar"/>
+                </group>
+                <group string="Vaccination" name="vaccination" >
+                    <field name="vaccine1"/>
+                    <field name="vaccine2"/>
+                    <field name="booster1"/>
+                    <field name="booster2"/>
+                </group>
+            </xpath>
+            <xpath expr="//group[@name='bpjs_ketenagakerjaan']" position="before">
+                <xpath expr="//group[@name='identification_group']" position="move"/>
+            </xpath>
+
+            <xpath position="attributes" expr="//field[@name='resource_calendar_id']">
+                <attribute name="string">Work Desc</attribute>
+            </xpath>
+            <xpath expr="//field[@name='gender']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='bank_account_id']" position="after">
+                <field name="account_bank" class="oe_inline"/>
+                <field name="account_holder" class="oe_inline"/>
+
+                <field name="gender" string="Gender" class="oe_inline"/>
+                <field name="hr_religion" string="Religion" class="oe_inline"/>
+                <field name="uniform_size" class="oe_inline"/>
+                <field name="other_size" class="oe_inline" attrs="{'invisible': [('uniform_size', '!=','others')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="area" string="FD Area" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

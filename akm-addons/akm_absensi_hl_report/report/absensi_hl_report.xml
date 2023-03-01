@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <report
+            id="absensi_hl_xls"
+            model="absensi.hl.wizard"
+            string="Absensi HL"
+            report_type="qweb-pdf"
+            name="akm_absensi_hl_report.absensi_hl_xls.xslx"
+            file="akm_absensi_hl_report.absensi_hl_xls.xslx"
+            menu="False"
+            attachment_use="False"/>
+
+</odoo>

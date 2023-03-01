@@ -1,0 +1,36 @@
+<odoo>
+	<record id="view_employee_form" model="ir.ui.view">
+		<field name="name">employee.form</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//notebook" position="inside">
+				<page name="disciplinary_history" string="Disciplinary History">
+					<field name="disciplinary_history_ids">
+						<tree editable="bottom"> 
+							<field name="date_diciplined"/>
+							<field name="disciplinary_stage"/>
+							<field name="valid_until"/>
+							<field name="reason_disciplinary"/>
+							<!--<field name="manual_action"/>-->
+							<field name="employee_id" invisible="1"/>
+							<field name="attachment_name" invisible="1" />
+							<field name="attachment" filename="attachment_name" />
+						</tree>
+					</field>
+				</page>
+			</xpath>
+		</field>
+	</record>
+    <record id="hr_employee_view_search_akm" model="ir.ui.view">
+        <field name="name">hr.employee.search.view.inherit.akm</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+				<field name="pin" string="NIK"/>
+				<field name="barcode" string="Old NIK"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

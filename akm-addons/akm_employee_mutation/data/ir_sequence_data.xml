@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	
+        <record id="seq_employee_mutation" model="ir.sequence">
+            <field name="name">Employee Mutation</field>
+            <field name="code">employee.mutation</field>
+            <field name="prefix">MUT</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,36 @@
+<odoo>
+    <record model="ir.ui.view" id="attendance_correction_view">
+        <field name="name">attendance.correction.view</field>
+        <field name="model">attendance.correction</field>
+        <field name="arch" type="xml">
+            <tree editable="top" default_order="tanggal desc" create="false">
+                <field name="name"/>
+                <field name="pin"/>
+                <field name="barcode"/>
+                <field name="pay_group"/>
+                <field name="pay_department"/>
+                <field name="tanggal"/>
+                <field name="schedule_in" widget="float_time"/>
+                <field name="schedule_out" widget="float_time"/>
+                <field name="check_in"/>
+                <field name="check_out"/>
+                <field name="worked_hours" />
+                <field name="flag_sts"/>
+                <field name='old_we_type_id'/>
+                <field name="hari"/>
+                <field name="paid"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="attendance_correction_action" model="ir.actions.act_window">
+        <field name="name">Attendance Correction</field>
+        <field name="res_model">attendance.correction</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="attendance_correction_menu" name="Attendance Correction"
+              parent="hr_attendance.menu_hr_attendance_manage_attendances"
+              action="attendance_correction_action"/>
+</odoo>

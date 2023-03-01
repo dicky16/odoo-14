@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_print_card" model="ir.actions.report">
+        <field name="name">Personal Card</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">akm_employees.print_card</field>
+        <field name="report_file">akm_employees.print_card</field>
+        <field name="print_report_name">'Card - %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_hr_employee"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="print_card">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <center>
+                        <table style="height:675px;width:450px; display:inline-block;">
+                            <tr>
+                                <td style="background-image: url('/akm_employees/static/img/back.jpeg');background-repeat:no-repeat;background-size:100%;">
+                                    <img alt="logo akm"
+                                         style="height:165px;width:165px;margin-left:auto;display: block;position:relative;top:20px;"
+                                         src="/akm_employees/static/img/logo_akm.png"/>
+                                    <div style="position: relative;bottom:40px;right:70px;">
+                                        <center>
+                                            <div style="width:210px;">
+                                            <strong>
+                                                <h2 style="font-size:25px;line-height:25px;position:relative;bottom:5px;" t-field="o.name"/>
+                                            </strong>
+                                            <hr style="border-top: 3px solid black; width:100%;position:relative;bottom:20px;"/>
+                                            </div>
+                                            <h3 style="position:relative;bottom:35px;font-size:20px;"
+                                                t-field="o.job_id"/>
+                                            <strong>
+                                                <h3 style="position:relative;bottom:35px;font-size:25px;"
+                                                    t-field="o.pin"/>
+                                            </strong>
+                                        </center>
+                                    </div>
+                                    <center>
+                                        <img t-if="o.image_1920" t-att-src="image_data_uri(o.image_1920)"
+                                             style="height:380px;width:380px;position:absolute;top:288px;"
+                                             alt="Personal Photo"/>
+                                    </center>
+                                    <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+                                    <br/>
+                                    <p>&#160;</p>
+                                    <br/>
+                                    <p>&#160;</p>
+                                    <br/>
+                                    <p>&#160;</p>
+                                    <br/>
+                                    <p>&#160;</p>
+                                    <br/>
+                                    <p>&#160;</p>
+                                    <br/>
+                                    <p>&#160;</p>
+                                    <br/>
+                                    <p>&#160;</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="height:675px;width:450px; display:inline-block; ">
+                            <tr>
+                                <td style="background-image: url('/akm_employees/static/img/detail.jpeg');background-repeat:no-repeat;background-size:100%;">
+                                    <center>
+                                        <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                        <p>&#160;</p>
+                                        <br/>
+                                    </center>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

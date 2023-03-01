@@ -1,0 +1,47 @@
+<odoo>
+    <record model="ir.ui.view" id="report_wizard_form_view">
+        <field name="name">disciplinary.report.wizard.form.view</field>
+        <field name="model">disciplinary.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Disciplinary Report ">
+                <sheet>            
+                  <group>
+                    <group string="Leave Summary Report">
+                        <field name="all_employee"/>
+                        <field name="all_stages"/>
+                        <div> <strong> Date From </strong> <field name="from_date" class="oe_inline"/> <strong> Date To </strong><field name="to_date"  class="oe_inline"/></div>
+                    </group>
+                  </group>
+                  <group>
+                        <field name="employee" string="Name of Employee" attrs="{'invisible': [('all_employee', '=', True)], 'required': [('all_employee', '=', False)] }"/>
+                        <field name="disciplinary_stages" attrs="{'invisible': [('all_stages', '=', True)], 'required' : [('all_stages', '=', False)]}"/>
+                  </group>
+                </sheet>
+               <footer>
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                  or 
+                  <button name="print_excel" string="Print Excel" type="object" default_focus="1" class="oe_highlight"/>
+               </footer>
+             </form>
+        </field>
+    </record> 
+
+    <act_window id="wizard_disciplinary_report"
+        name="Disciplinary Report"
+        src_model="disciplinary.stage"
+        res_model="disciplinary.report.wizard"
+        view_mode="form"
+        target="new"
+        />
+
+    <report
+        id="disciplinary_xlsx"
+        model="disciplinary.report.wizard"
+        string="Disciplinary Excel"
+        report_type="xlsx"
+        name="disciplinary_report.xlsx"
+        file="disciplinary_report.xlsx"
+        attachment_use="False"
+    />
+</odoo>
+
