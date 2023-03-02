@@ -1,0 +1,27 @@
+<odoo>
+	<template id="disciplinary_attachment">
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+            	<t t-foreach="docs" t-as="doc">
+	                <div class="page">
+	                    <div class="row">
+	                        <div class="col-xs-12">
+	                        	<div t-field="doc.letter_content"/>
+	                        </div>
+	                    </div>
+	                </div>
+	            </t>
+            </t>
+        </t>
+	</template>
+
+	<report
+	    id="disciplinary_attachment_report"
+	    model="disciplinary.wizard"
+	    string="Disciplinary Attachment"
+	    report_type="qweb-pdf"
+	    name="akm_hr_disciplinary.disciplinary_attachment"
+	    file="akm_hr_disciplinary.disciplinary_attachment"
+	    attachment_use="True"
+	/>
+</odoo>

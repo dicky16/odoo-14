@@ -1,0 +1,89 @@
+<odoo>
+    <record id="akm_employee_search" model="ir.ui.view">
+        <field name="name">akm.employee.search</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="barcode"/>
+                <field name="pin"/>
+                <field name='identification_id' string='Nomor KTP'/>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="pay_department"/>
+                <field name="pay_group"/>
+                <field name="pay_location"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="akm_employee_directory">
+        <field name="name">akm.employee.directory</field>
+        <field name="model">hr.employee.public</field>
+        <field name="inherit_id" ref="hr.hr_employee_public_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="barcode"/>
+                <field name="pin"/>
+                <field name='identification_id' string='Nomor KTP'/>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='job_title']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="akm_attendance_search" model="ir.ui.view">
+        <field name="name">akm.attendance.search</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="before">
+                <field name="barcode"/>
+                <field name="nik"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="search_fd_attendance" model="ir.ui.view">
+        <field name="name">search.fd.attendance</field>
+        <field name="model">fd.attendances</field>
+        <!--        <field name="inherit_id" ref="akm_attendances.search_fd_attendance"/>-->
+        <field name="arch" type="xml">
+            <search string="search real attendance">
+                <field name="barcode"/>
+                <field name="nik"/>
+                <field name="name"/>
+                <field name="pay_group"/>
+                <field name="pay_department"/>
+                <field name="pay_location"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="search_attendance_correction" model="ir.ui.view">
+        <field name="name">search.attendance.correction</field>
+        <field name="model">attendance.correction</field>
+        <!--        <field name="inherit_id" ref="akm_attendances.search_attendance_correction"/>-->
+        <field name="arch" type="xml">
+            <search string="search real attendance">
+                <field name="barcode"/>
+                <field name="pin"/>
+                <field name="name"/>
+                <field name="pay_group"/>
+                <field name="pay_department"/>
+            </search>
+        </field>
+    </record>
+    
+    <menuitem id="hr_akm_employee_menu" name="Employee" parent="hr.menu_hr_root"
+              action="hr.open_view_employee_list_my" sequence="1" />
+    <delete model="ir.actions.act_window" id="hr.hr_employee_public_action"/>
+</odoo>
+

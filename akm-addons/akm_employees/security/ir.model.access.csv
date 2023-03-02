@@ -1,0 +1,17 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+acces_pay_location,access_pay_location,model_pay_location,,1,1,1,1
+acces_pay_group,access_pay_group,model_pay_group,,1,1,1,1
+acces_pay_department,access_pay_department,model_pay_department,,1,1,1,1
+
+acces_hr_divisi,access_hr_divisi,model_hr_divisi,,1,1,1,1
+acces_department_sub,access_department_sub,model_department_sub,,1,1,1,1
+acces_hr_section,access_hr_section,model_hr_section,,1,1,1,1
+
+acces_hr_pph21,access_hr_pph21,model_hr_pph21,,1,1,1,1
+acces_akm_bpjs,access_akm_bpjs,model_akm_bpjs,,1,1,1,1
+acces_program_tk,access_program_tk,model_program_tk,,1,1,1,1
+acces_hr_group,access_hr_group,model_employee_group,,1,1,1,1
+
+acces_hr_borongan,access_hr_borongan,model_hr_borongan,,1,1,1,1
+acces_hr_koperasi,access_hr_koperasi,model_hr_koperasi,,1,1,1,1
+acces_hr_status,access_hr_status,model_hr_status,,1,1,1,1

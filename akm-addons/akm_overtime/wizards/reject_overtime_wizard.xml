@@ -1,0 +1,22 @@
+<odoo>
+	<data>
+		<record id="view_overtime_reject" model="ir.ui.view">
+            <field name="name">Overtime Reject</field>
+            <field name="model">overtime.reject</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <label for="note" string="Add Reason to reject the overtime record"/>
+	                    <group>
+                            <field name="note" required="1"/>
+                        </group>
+                        <footer>
+                            <button string="Confirm" type="object" name="confirm_button" class="oe_highlight"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel" />
+                        </footer>
+                    </group>
+                </form>
+            </field>
+        </record>
+	</data>
+</odoo>

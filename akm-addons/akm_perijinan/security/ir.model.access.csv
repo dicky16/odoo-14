@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+acces_tipe_perijinan,access_tipe_perijinan,model_tipe_perijinan,base.group_user,1,1,1,1
+acces_hr_perijinan,access_hr_perijinan,model_hr_perijinan,base.group_user,1,1,1,1
+acces_penerbit_perijinan,access_penerbit_perijinan,model_penerbit_perijinan,base.group_user,1,1,1,1

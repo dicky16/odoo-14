@@ -1,0 +1,100 @@
+<odoo>
+    <record id="hr_work_entry_view_tree_akm" model="ir.ui.view">
+        <field name="name">hr.work.entry.tree.akm</field>
+        <field name="model">hr.work.entry</field>
+        <field name="inherit_id" ref="hr_work_entry.hr_work_entry_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree multi_edit="1" sample="1" editable="bottom">
+                    <field name="actual_date"/>
+                    <field name="pin"/>
+                    <field name="barcode"/>
+                    <field name="employee_id" readonly="1"/>
+                    <field name="pay_location" optional="hide"/>
+                    <field name="pay_group"/>
+                    <field name="pay_department"/>
+                    <field name="pay_status" optional="hide"/>
+<!--                    <field name="empl_group_id" optional="hide"/>-->
+<!--                    <field name="empl_department" optional="hide"/>-->
+                    <field name="sched_in" optional="hide"/>
+                    <field name="sched_out" optional="hide"/>
+                    <field name="masuk"/>
+                    <field name="keluar"/>
+                    <field name="date_start" optional="hide" readonly="1"/>
+                    <field name="date_stop" optional="hide" readonly="1"/>
+                    <field name="actual_in" optional="hide" readonly="0"/>
+                    <field name="actual_out" optional="hide" readonly="0"/>
+                    <field name="duration"/>
+                    <field name="add_break" optional="hide"/>
+                    <field name="work_entry_type_id" string="Flag Sts" options="{'no_create': True, 'no_open': True}"/>
+                    <field name='old_we_type_id' readonly='1' />
+                    <field name="day" readonly="1"/>
+                    <field name="is_paid"/>
+                    <field name="state" optional="hide"/>
+                    <field name="note" optional="hide"/>
+                    <button name="action_view_detail" type="object" icon="fa-search"/>
+                </tree>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_work_entry_view_form_akm" model="ir.ui.view">
+        <field name="name">hr.work.entry.form.akm</field>
+        <field name="model">hr.work.entry</field>
+        <field name="inherit_id" ref="hr_work_entry.hr_work_entry_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_start']" position="replace">
+                <field name="date_start" string="Schedule In" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='date_stop']" position="replace">
+                <field name="date_stop" string="Schedule Out" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='date_stop']" position="after">
+                <field name="actual_in" readonly="1"/>
+                <field name="actual_out" readonly="1"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='duration']" position="replace">-->
+<!--                <field name="work_hours" attrs="{'readonly': [('state', '!=', 'draft')]}" class="oe_inline" nolabel="1" />-->
+<!--            </xpath>-->
+<!--            <xpath expr="//label[@for='duration']" position="replace">-->
+<!--                <label for="work_hours" string="Work Hours"/>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='work_entry_type_id']" position="after">
+                <field name="note"/>
+                <field name="duration" readonly="1" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_work_entry_view_search_akm" model="ir.ui.view">
+        <field name="name">hr.work.entry.search.akm</field>
+        <field name="model">hr.work.entry</field>
+        <field name="inherit_id" ref="hr_work_entry.hr_work_entry_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="before">
+                <field name="barcode" string="Old NIK" />
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="pin" string="NIK" />
+                <field name="empl_group_id" string="Group" />
+                <field name="pay_location" />
+                <field name="pay_group" />
+                <field name="pay_department" />
+                <field name="work_entry_type_id" string="Flag Sts"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_work_entry_regeneration_wizard_akm" model="ir.ui.view">
+        <field name="name">hr_work_entry_regeneration_wizard_akm</field>
+        <field name="model">hr.work.entry.regeneration.wizard</field>
+        <field name="inherit_id" ref="hr_payroll_edit_lines.hr_work_entry_regeneration_wizard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="replace">
+                <field name="employee_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <field name="employee_ids" domain="[('contract_id','!=', False)]" multi_edit="1" sample="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

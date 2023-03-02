@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_mutation" model="ir.ui.view">
+        <field name="name">employee.form.mutation</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="mutation_history" string="Mutation History">
+                    <field name="mutation_history_ids">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="mutation_time" optional="hide"/>
+                            <field name="employee"/>
+                            <field name="company" optional="hide"/>
+                            <field name="work_location" optional="hide"/>
+                            <field name="pin"/>
+                            <field name="barcode"/>
+                            <field name="pay_department" optional="hide"/>
+                            <field name="pay_group" optional="hide"/>
+                            <field name="department" optional="hide"/>
+                            <field name="pay_location" optional="hide"/>
+                            <field name="pay_group_to_mutation" optional="hide" string="To Pay Group"/>
+                            <field name="pay_department_to_mutation" optional="hide" string="To Pay Department"/>
+                            <field name="sub_department" optional="hide"/>
+                            <field name="section" optional="hide"/>
+                            <field name="job_position" optional="hide"/>
+                            <field name="resource_calendar_id" optional="hide"/>
+                            <field name="company_for_mutation" optional="hide"/>
+                            <field name="location_to_mutation" optional="hide"/>
+                            <field name="department_to_mutation" optional="hide"/>
+                            <field name="sub_department_to_mutation" optional="hide"/>
+                            <field name="section_to_mutation" optional="hide"/>
+                            <field name="job_position_to_mutation" optional="hide"/>
+                            <field name="calendar_to_mutation" optional="hide"/>
+                            <field name="state" optional="hide"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="act_mutation_contract" model="ir.actions.act_window">
+        <field name="name">Contracts</field>
+        <field name="res_model">hr.contract</field>
+        <!--            <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_employee_mutation_tree_new" model="ir.ui.view">
+        <field name="name">employee.mutation.tree</field>
+        <field name="model">employee.mutation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="mutation_time"/>
+                <field name="employee"/>
+                <field name="company" optional="hide"/>
+                <field name="work_location" optional="hide"/>
+                <field name="department"/>
+                <field name="pin"/>
+                <field name="barcode"/>
+                <field name="pay_location" optional="hide"/>
+                <field name="pay_group_to_mutation" optional="hide"/>
+                <field name="pay_department_to_mutation" optional="hide"/>
+                <field name="pay_department" optional="hide"/>
+                <field name="pay_group" optional="hide"/>
+                <field name="pay_group_to_mutation" optional="hide" string="To Pay Group"/>
+                <field name="pay_department_to_mutation" optional="hide" string="To Pay Department"/>
+                <field name="sub_department" optional="hide"/>
+                <field name="section" optional="hide"/>
+                <field name="job_position"/>
+                <field name="resource_calendar_id"/>
+                <field name="company_for_mutation" optional="hide"/>
+                <field name="location_to_mutation" optional="hide"/>
+                <field name="department_to_mutation"/>
+                <field name="sub_department_to_mutation" optional="hide"/>
+                <field name="section_to_mutation" optional="hide"/>
+                <field name="job_position_to_mutation"/>
+                <field name="calendar_to_mutation"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_employee_mutation_sheet_form" model="ir.ui.view">
+        <field name="name">employee.mutation.form</field>
+        <field name="model">employee.mutation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!--                    <button name="submit" states="draft" type="object" string="Submit to Manager"/>   -->
+                    <button name="action_approve12" states="waiting,draft" type="object" string="Approve"/>
+                    <button name="action_reject" type="object" string="Reject" states="waiting"/>
+                    <button name="action_renew_contract" type="object" string="Renew Contracts" states="approved"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,rejected,renew_contracts"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_contracts"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                attrs="{'invisible': [('contract_count', '=', 0)]}">
+                            <field name="contract_count" widget="statinfo" string="Contracts"/>
+                        </button>
+                    </div>
+                    <group name="std_info">
+                        <field name="employee" string="Employee" class="oe_inline" required="True"
+                               attrs="{'readonly':[('state', '=', 'approved')]}"/>
+                        <field name="grade"/>
+                        <field name="mutation_time" class="oe_inline" required="True"
+                               attrs="{'readonly':[('state', '=', 'approved')]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <group>
+                                <group name="from_mutation" string="From" readonly="1">
+                                    <field name="company" groups="base.group_multi_company" force_save="1"
+                                           readonly="1"/>
+                                    <field name="pay_group" readonly="1" force_save="1" />
+                                    <field name="pay_department" readonly="1" force_save="1" />
+                                    <field name="pay_location" readonly="1" force_save="1" />
+                                    <field name="department" force_save="1" readonly="1"/>
+                                    <field name="sub_department" force_save="1" readonly="1"/>
+                                    <field name="section" force_save="1" readonly="1"/>
+                                    <field name="job_position" force_save="1" readonly="1"/>
+                                    <field name="work_location" invisible="1" force_save="1" readonly="1"/>
+                                    <field name="resource_calendar_id" force_save="1" readonly="1"/>
+                                </group>
+                                <group name="to_mutation" string="To">
+                                    <field name="pay_group_to_mutation" required="True"
+                                           attrs="{'readonly':[('state', '=', 'approved')]}"
+                                           context="{'check_model': True}"/>
+                                    <field name="company_for_mutation" required="True" options="{'no_create': True}"
+                                           attrs="{'readonly':[('state', '=', 'approved')]}"
+                                           groups="base.group_multi_company"/>
+                                    <field name="pay_department_to_mutation" required="True"
+                                           attrs="{'readonly':[('state', '=', 'approved')]}"
+                                           context="{'check_model': True}"/>
+                                    <field name="location_to_mutation" required="True"
+                                           attrs="{'readonly':[('state', '=', 'approved')]}"
+                                           context="{'check_model': True}"/>
+                                    <field name="department_to_mutation" options="{'no_create': True}"
+                                           domain="[('grade','=','department')]"
+                                           attrs="{'readonly':[('state', '=', 'approved')]}"
+                                           context="{'check_model': True}"/>
+                                    <field name="sub_department_to_mutation"
+                                           options="{'no_create': True}"
+                                           domain="[('grade','=','sub_department')]"
+                                           attrs="{'readonly':[('state', '=', 'approved')],'required': [('grade', 'in', ['sub_department','section','non'])]}"
+                                           context="{'check_model': True}"/>
+                                    <field name="section_to_mutation" options="{'no_create': True}"
+                                           domain="[('grade','=','section')]"
+                                           attrs="{'readonly':[('state', '=', 'approved')],'required': [('grade', 'in', ['section','non'])]}"
+                                           context="{'check_model': True}"/>
+
+                                    <field name="job_position_to_mutation" options="{'no_create': True}"
+                                           domain="[('company_id','=',company_for_mutation),('company_id','!=',False),('department_id','=',department_to_mutation)]"
+                                           attrs="{'readonly':[('state', '=', 'approved')]}"
+                                           context="{'check_model': True}"/>
+                                    <field name="calendar_to_mutation" required="True"
+                                           domain="[('company_id','=',company_for_mutation),('company_id','!=',False)]"/>
+                                </group>
+                            </group>
+                            <field name="description" placeholder="Notes..." class="oe_inline" nolabel="1"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','waiting'])]}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_employee_mutation" model="ir.actions.act_window">
+        <field name="name">Mutation Request</field>
+        <field name="res_model">employee.mutation</field>
+        <!--            <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','!=','waiting')]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new record for employee mutation.
+            </p>
+        </field>
+    </record>
+
+    <record id="hr_employee_approval" model="ir.actions.act_window">
+        <field name="name">Mutation To Approve</field>
+        <field name="res_model">employee.mutation</field>
+        <!--            <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','=','waiting')]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new record for employee mutation.
+            </p>
+        </field>
+    </record>
+
+    <record id="hr_employee_approval_renew_mutation" model="ir.actions.act_window">
+        <field name="name">Mutation to Renew Contract</field>
+        <field name="res_model">employee.mutation</field>
+        <!--            <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','=','approved')]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new record for employee mutation.
+            </p>
+        </field>
+    </record>
+
+    <!--    <menuitem id="menu_disciplinary" sequence="20" name="Disciplinary" parent="hr.menu_hr_root" />-->
+
+    <menuitem id="menu_hr_mutation"
+              name="Mutation"
+              sequence="30"
+              parent="hr.menu_hr_root"
+    />
+
+    <menuitem id="menu_hr_mutation_request" name="Mutation Request" parent="menu_hr_mutation"
+              action="hr_employee_mutation" sequence="1"/>
+    <menuitem id="menu_hr_mutation_approve_new" name="Mutation To Approve" parent="menu_hr_mutation"
+              action="hr_employee_approval" sequence="2"/>
+    <menuitem id="menu_hr_mutation_renew" name="Mutation to Renew Contract" parent="menu_hr_mutation"
+              action="hr_employee_approval_renew_mutation" sequence="3"/>
+
+
+</odoo>
+
+

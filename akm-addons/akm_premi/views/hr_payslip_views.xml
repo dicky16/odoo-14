@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_filter_premi" model="ir.ui.view">
+        <field name="name">hr.payslip.select.premi</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="before" >
+                <field name="barcode" />
+                <field name="pin" />
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="after" >
+                <field name="pay_location" />
+                <field name="pay_group" />
+                <field name="pay_department" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_tree_premi" model="ir.ui.view">
+        <field name="name">view_hr_payslip_tree_premi</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="30"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payslip_run_id']" position="replace" />
+            <xpath expr="//field[@name='number']" position="before" >
+                <field name="payslip_run_id" />
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="before" >
+                <field name="barcode" />
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="after" >
+                <field name="pin" />
+                <field name="pay_location" optional="hide"/>
+                <field name="pay_group" optional="hide"/>
+                <field name="pay_department" optional="hide"/>
+                <field name="monthly_wage" optional="hide"/>
+                <field name="hourly_wage" optional="show"/>
+                <field name="sum_worked_hours" optional="show" string="Worked Hours"/>
+            </xpath>
+            <xpath expr="//field[@name='basic_wage']" position="replace" >
+                <field name="basic_wage" string="Gapok" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="bpjs_wage" string="BPJS" widget="monetary" options="{'currency_field': 'currency_id'}" optional="show"/>
+                <field name="spsi_wage" string="SPSI" widget="monetary" options="{'currency_field': 'currency_id'}" optional="show"/>
+                <field name="potongan_wage" string="Potongan Lain" widget="monetary" options="{'currency_field': 'currency_id'}" optional="show"/>
+                <field name="premi_wage" string="Premi" widget="monetary" options="{'currency_field': 'currency_id'}" optional="show"/>
+                <field name="insentif_wage" string="Insentif" widget="monetary" options="{'currency_field': 'currency_id'}" optional="show"/>
+                <field name="gross_wage" string="Gross" widget="monetary" options="{'currency_field': 'currency_id'}" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='date_from']" position="attributes" >
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_to']" position="attributes" >
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payslip_run_id']" position="attributes" >
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_hr_payslip_form_premi" model="ir.ui.view">
+        <field name="name">view_hr_payslip_form_premi</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="30"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='work_entry_type_id']" position="before" >
+                <field name="week" optional="hide"/>
+<!--                <field name="code" optional="hide"/>-->
+            </xpath>
+            <xpath expr="//group[@name='accounting']" position="after" >
+                <group name="add_info" string="Additional Info">
+                    <field name="additional_ids" widget="many2many_tags" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payslip_run_form_akm" model="ir.ui.view">
+        <field name="name">hr.payslip.run.form.akm</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='credit_note']" position="after" >
+                <field name="additional_ids" widget="many2many_tags" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payroll.action_hr_payslip_run_tree" model="ir.actions.act_window">
+        <field name="name">Payroll Register</field>
+    </record>
+<!--    <record model="ir.ui.menu" id="hr_payroll.menu_hr_payslip_run">-->
+<!--        <field name="name">Register</field>-->
+<!--    </record>-->
+      <menuitem
+        id="hr_payroll.menu_hr_payslip_run"
+        action="hr_payroll.action_hr_payslip_run_tree"
+        name="Register"
+        sequence="80"
+        parent="hr_payroll.menu_hr_payroll_payslips"/>
+</odoo>

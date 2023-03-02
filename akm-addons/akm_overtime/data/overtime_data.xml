@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequences for overtime.request -->
+        <record id="seq_overtime_request" model="ir.sequence">
+            <field name="name">Overtime Request</field>
+            <field name="code">overtime.request</field>
+            <field name="prefix">OR</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Data of overtime.type -->
+        <record id="general_overtime_type" model="overtime.type">
+            <field name="name">General</field>
+        </record>
+    </data>
+</odoo>

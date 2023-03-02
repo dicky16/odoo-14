@@ -1,0 +1,46 @@
+<odoo>
+    <record id="akm_attendance_view" model="ir.ui.view">
+        <field name="name">akm.attendance.view</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="pay_status"/>
+            </xpath>
+            <xpath expr="//field[@name='worked_hours']" position="replace">
+                <field name="worked_hours" string="Work Hours"/>
+                <field name="notes" optional="hide" />
+<button string=" Calc" name="action_get" type="object" icon="fa-calendar-o"/>
+                <button string="detail" name="action_view_detail" type="object" icon="fa-calendar-o"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_attendance_view_pivot_akm" model="ir.ui.view">
+        <field name="name">hr.attendance.pivot.akm</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='check_in']" position="replace">
+                <field name="check_in" type="col" interval="day"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_attendance_view_filter_akm" model="ir.ui.view">
+        <field name="name">hr.attendance.filter.akm</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='check_in_filter']" position="before">
+                <filter string="Current Month" name="current_month" domain="[('check_in','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('check_in','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="pay_status"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_attendance.hr_attendance_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form,pivot</field>
+        <field name="context">{"search_default_current_month":1,"show_department":1}</field>
+    </record>
+
+</odoo>

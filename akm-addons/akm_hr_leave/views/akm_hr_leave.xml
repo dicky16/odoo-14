@@ -1,0 +1,62 @@
+<odoo>
+    <record model="ir.ui.view" id="akm_hr_leave">
+        <field name="name">akm.hr.leave</field>
+        <field name="model">hr.work.entry</field>
+        <field name="inherit_id" ref="akm_attendance_correction.hr_work_entry_view_tree_akm"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_detail']" position="after">
+                <field name="is_leave" invisible="1"/>
+                <button string="Cuti" name="action_view_cuti" type="object"
+                        attrs="{'invisible': [('is_leave', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="akm_hr_leave_button">
+        <field name="name">akm.hr.leave.button</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_approve']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_refuse']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_draft']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+             <xpath expr="//field[@name='number_of_days']" position="after">
+                <field name="work_entry_id" invisible="1" />
+                <field name="leave_type" />
+            </xpath>
+             <xpath expr="//field[@name='holiday_status_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('state','in',['cancel','refuse','validate1'])]}</attribute>
+                <attribute name="domain">[('work_entry_type_id', '=', leave_type)]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="akm_state_view" model="ir.ui.view">
+        <field name="name">akm.state.view</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='state']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    
+        <record id="akm_holiday_type" model="ir.ui.view">
+        <field name="name">akm.holiday.type</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="work_entry_type_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
