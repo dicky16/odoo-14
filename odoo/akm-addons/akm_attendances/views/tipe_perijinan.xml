@@ -1,0 +1,40 @@
+<odoo>
+    <record model="ir.ui.view" id="tipe_perijinan_view">
+        <field name="name">tipe.perijinan.view</field>
+        <field name="model">tipe.perijinan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="tipe_perijinan_form">
+        <field name="name">tipe.perijinan.form</field>
+        <field name="model">tipe.perijinan</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="float-left">
+                        <label for="name" class="oe_edit_only oe_inline">
+                            Name
+                        </label>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tipe_perijinan_action" model="ir.actions.act_window">
+        <field name="name">Tipe Perijinan</field>
+        <field name="res_model">tipe.perijinan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="tipe_perijinan_menu" name="Tipe Perijinan"
+              parent="hr_attendance.menu_hr_attendance_manage_attendances"
+              action="tipe_perijinan_action"/>
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+    <record model="ir.ui.view" id="akm_employee_tree_premi">
+        <field name="name">akm.employee.tree.premi</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pay_department']" position="after">
+                <field name="departure_date" string="Termination Date" optional="hide"/>
+                <field name="end_contract_date" string="End Contract" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

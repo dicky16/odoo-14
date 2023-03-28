@@ -1,0 +1,69 @@
+<odoo>
+    <record model="ir.ui.view" id="fd_attendances_view">
+        <field name="name">fd.attendances.view</field>
+        <field name="model">fd.attendances</field>
+        <field name="arch" type="xml">
+            <tree default_order="punch_time desc" create="true">
+                <field name="nik"/>
+                <field name="barcode"/>
+                <field name="name"/>
+                <field name="pay_group"/>
+                <field name="pay_department"/>
+                <field name="pay_location"/>
+                <field name="punch_time"/>
+                <field name="punch_state_display"/>
+                <field name="attend_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="akm_get_real_attendance">
+        <field name="name">akm.get.real.attendance</field>
+        <field name="model">confirmation.real</field>
+        <field name="arch" type="xml">
+            <form string="Get Real Attendance">
+                <p>Are you sure to get data from face detector?</p>
+                <footer>
+                    <button class="oe_highlight" name="confirm_yes" string="Yes" type="object"/>
+                    <button class="oe_highlight" name="cancel_button" string="No" type="object"/>
+                </footer>
+                <script>
+                    $(document).ready(function(){
+                    $('.modal-dialog').css({'width': '30%', 'height': '40%'});
+                    });
+                </script>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="get_real_attendance_wizard">
+        <field name="name">Get Real Attendance</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">confirmation.real</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="akm_get_real_attendance"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="hr_get_real_attendance" name="Get Real Attendance"
+              parent="hr_attendance.menu_hr_attendance_manage_attendances"
+              action="get_real_attendance_wizard"/>
+
+    <record model="ir.actions.act_window" id="fd_attendances_action">
+        <field name="name">Real Attendances</field>
+        <field name="res_model">fd.attendances</field>
+        <field name="view_mode">tree</field>
+    </record>
+    
+    <delete model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_no_user_mode" />
+    <delete model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances" />
+
+    <record model="ir.actions.act_window" id="fd_attendances_action">
+        <field name="name">Real Attendances</field>
+        <field name="res_model">fd.attendances</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_fd_attendance_view_employees_kanban" name="Real Attendances"
+              parent="hr_attendance.menu_hr_attendance_manage_attendances" action="fd_attendances_action"/>
+</odoo>

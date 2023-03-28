@@ -1,0 +1,48 @@
+<odoo>
+    <record model="ir.ui.view" id="akm_bpjs_view">
+        <field name="name">akm.bpjs.view</field>
+        <field name="model">akm.bpjs</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="type"/>
+                <field name="program_tk_ids"/>
+                <field name="status_kes"/>
+                <field name="no"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="akm_bpjs_form">
+        <field name="name">akm.bpjs.form</field>
+        <field name="model">akm.bpjs</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="type" class="oe_inline"/>
+                            <field name="program_tk_ids" attrs="{'invisible': [('type', '=', 'kes')]}" widget="many2many_tags"/>
+<!--                            <field name="program_tk" attrs="{'invisible': [('type', '=', 'kes')]}"/>-->
+                            <field name="status_kes" class="oe_inline" attrs="{'invisible': [('type', '=', 'tk')]}"/>
+                            <field name="no" class="oe_inline"/>
+                            <field name="iuran" class="oe_inline"/>
+                        </group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar" string="Foto Kartu"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+<!--    <record id="akm_bpjs_action" model="ir.actions.act_window">-->
+<!--        <field name="name">BPJS</field>-->
+<!--        <field name="res_model">akm.bpjs</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--    </record>-->
+
+<!--    <menuitem id="akm_bpjs_menu" name="BPJS" parent="hr.menu_human_resources_configuration"-->
+<!--              action="akm_bpjs_action"/>-->
+</odoo>

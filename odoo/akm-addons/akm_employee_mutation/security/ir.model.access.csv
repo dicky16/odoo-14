@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_employee_mutation,employee.mutation,model_employee_mutation,,1,1,1,1
+access_renew_mutation,employee.renew.contract,model_renew_contract_mutation,,1,1,1,1

@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+acces_fd_attendances,access_fd_attendances,model_fd_attendances,base.group_user,1,1,1,1
+acces_attendance_correction,access_attendance_correction,model_attendance_correction,base.group_user,1,1,1,1
+acces_confirmation_real,access_confirmation_real,model_confirmation_real,base.group_user,1,1,1,1

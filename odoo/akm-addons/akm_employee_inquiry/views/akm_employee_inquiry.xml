@@ -1,0 +1,115 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_emp_inquiry">
+        <field name="name">hr.employee.inquiry</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Name</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="pay_location"/>
+                <field name="divisi" optional='hide' />
+                <field name="department_id" optional='hide' />
+                <field name="sub_department" optional="hide"/>
+                <field name="section" optional="hide"/>
+            </xpath>
+            <!--<xpath expr="//field[@name='tz']" position='attributes'>
+            	<attribute name='invisible'>1</attribute>
+            </xpath>-->
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="wage" optional='hide' />
+		<field name="hourly_wage" optional="hide"/>
+                <field name="status_karyawan" optional='hide'/>
+                <field name="join1" optional="hide"/>
+                <field name="age1" optional="hide"/>
+                <field name="periode1" optional="hide"/>
+                <field name="join2" optional="hide"/>
+                <field name="periode2" optional="hide"/>
+                <field name="place_of_birth" optional="hide"/>
+                <field name="birthday" optional="hide"/>
+                <field name="age2" optional="hide"/>
+                <field name="gender" optional="hide"/>
+                <field name="identification_id" optional="hide"/>
+                <field name="address_home_id" optional="hide"/>
+                <!--                <field name="kota_sekarang"/>-->
+                <field name="phone" optional="hide"/>
+                <field name="mobile" optional="hide"/>
+                <field name="hr_religion" optional="hide"/>
+                <field name="marital" optional="hide"/>
+                <!--                <field name="koperasi"/>-->
+                <field name="npwp" optional="hide"/>
+                <!--                <field name="pph21status"/>-->
+                <field name="bank_account_id" optional="hide"/>
+                <!--                <field name="no_account"/>-->
+                <field name="name" optional="hide"/>
+                <field name="grade" optional="hide"/>
+                <!--                <field name="cabang"/>-->
+                <!--                <field name="contract"/>-->
+                <field name="iuran_tk" optional="hide"/>
+                <field name="iuran_kes" optional="hide"/>
+                <field name="address_home_id" optional="hide"/>
+                <!--                <field name="kota_asal"/>-->
+                <field name="passport_id" optional="hide"/>
+                <!--                <field name="ctr"/>-->
+                <field name="resource_calendar_id" optional="hide"/>
+                <field name="study_school" optional="hide"/>
+                <!--                <field name="flag"/>-->
+                <!--                <field name="costing"/>-->
+                <field name="status" optional="hide"/>
+                <field name="hr_group_id" optional="hide"/>
+                <field name="core_proses" optional="hide"/>
+                <field name="vaccine1" optional="hide"/>
+                <field name="vaccine2" optional="hide"/>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='resource_calendar_id']" position="after">
+                <xpath expr="//field[@name='work_email']" position="move"/>
+            </xpath>
+            <xpath expr="//field[@name='work_email']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="akm_get_employee">
+        <field name="name">akm.get.employee</field>
+        <field name="model">confirmation.employee</field>
+        <field name="arch" type="xml">
+            <form string="Get Employee">
+                <p>Are you sure to get data employee ?</p>
+                <footer>
+                    <button class="oe_highlight" name="confirm_yes" string="Yes" type="object"/>
+                    <button class="oe_highlight" name="cancel_button" string="No" type="object"/>
+                </footer>
+                <script>
+                    $(document).ready(function(){
+                    $('.modal-dialog').css({'width': '30%', 'height': '40%'});
+                    });
+                </script>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="get_employee_wizard">
+        <field name="name">Get Employee</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">confirmation.employee</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="akm_get_employee"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="hr_get_employee" name="Get employee"
+              parent="hr.menu_hr_root"
+              action="get_employee_wizard"/>
+</odoo>

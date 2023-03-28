@@ -1,0 +1,59 @@
+<openerp>
+	<data>
+        <!-- HEADER -->
+        <menuitem id="hr_menus" sequence="100" name="Human Resources"  web_icon="hr,static/description/icon.png" groups="group_show_hr_menu"   />
+            <menuitem id="hr.menu_hr_root" parent="hr_menus" sequence="0"  name="Employees"   />
+            <menuitem id="hr_attendance.menu_hr_attendance_root" parent="hr_menus" sequence="10" name="Attendance"     />
+            <menuitem id="hr_work_entry_contract.menu_hr_payroll_root" parent="hr_menus" sequence="20" name="Payroll"    />
+            <!--<menuitem id="hr_expense.menu_hr_expense_root" parent="hr_menus" sequence="30"  name="Expenses"   />-->
+        <!--        <menuitem id="hr_attendance.timesheet_menu_root" parent="hr_menus" sequence="3" name="Time Sheet"   />-->
+            <menuitem id="hr_holidays.menu_hr_holidays_root" parent="hr_menus" sequence="50" name="Time Off"    />
+            <menuitem id="hr.hr_menu_configuration" name="Settings" parent="hr_menus" sequence="200"/>
+            <menuitem id="akm_overtime.overtime_request_summary_mgmt" action="akm_overtime.action_overtime_request_summary"
+                      parent="hr_attendance.menu_hr_attendance_root" sequence="20"/>
+
+        <menuitem id="menu_hr_perijinan" name="General" parent="hr_menus" groups="hr.group_hr_user" sequence="60"/>
+            <menuitem id="akm_perijinan.hr_perijinan_menu" name="Perijinan" parent="menu_hr_perijinan"
+                      sequence="10" action="akm_perijinan.hr_perijinan_action"/>
+            <menuitem id="akm_perijinan.tipe_perijinan_menu" name="Tipe Perijinan" parent="menu_hr_perijinan"
+                      sequence="20" action="akm_perijinan.tipe_perijinan_action"/>
+
+        <!-- LEVEL 1 -->
+        <menuitem id="hr_contract.hr_menu_contract" name="Contracts" parent="hr.menu_hr_root" sequence="10"/>
+        <menuitem id="hr.menu_hr_department_kanban" parent="hr.menu_hr_root" name="Department" sequence="20"/>
+        <menuitem
+            id="hr.menu_human_resources_configuration"
+            name="Configuration"
+            parent="hr.menu_hr_root"
+            groups="hr.group_hr_manager"
+            sequence="100"/>
+
+        <!-- CONFIG -->
+        <menuitem id="akm_employees.hr_divisi_menu" name="Division" parent="hr.menu_human_resources_configuration_employee"
+                  sequence="10" action="akm_employees.hr_divisi_action"/>
+        <menuitem id="hr.menu_hr_department_tree" name="Department" parent="hr.menu_human_resources_configuration_employee"
+                  sequence="20"/>
+        <menuitem id="akm_employees.department_sub_menu" name="Sub Dept" parent="hr.menu_human_resources_configuration_employee"
+                  sequence="30" action="akm_employees.department_sub_action"/>
+        <menuitem id="akm_employees.hr_section_menu" name="Section" parent="hr.menu_human_resources_configuration_employee"
+                  sequence="40" action="akm_employees.hr_section_action"/>
+        <menuitem id="akm_employees.hr_borongan_menu" name="Grup Borongan" parent="hr.menu_human_resources_configuration_employee"
+                  sequence="50" action="akm_employees.hr_borongan_action"/>
+        <menuitem id="akm_employees.hr_koperasi_menu" name="Koperasi" parent="hr.menu_human_resources_configuration_employee"
+                  sequence="60" action="akm_employees.hr_koperasi_action"/>
+
+        <!-- DELETE -->
+        <record id="hr.menu_hr_employee_payroll" model="ir.ui.menu">
+            <field name="active" eval="False"></field>
+        </record>
+        <record id="hr.menu_view_employee_category_form" model="ir.ui.menu">
+            <field name="active" eval="False"></field>
+        </record>
+        <record id="hr.menu_config_plan" model="ir.ui.menu">
+            <field name="active" eval="False"></field>
+        </record>
+        <!--<record id="akm_attendances.attendance_correction_menu" model="ir.ui.menu">
+            <field name="active" eval="False"></field>
+        </record>-->
+    </data>
+</openerp>

@@ -1,0 +1,47 @@
+<odoo>
+    <record id="alloc_wizard_form_view" model="ir.ui.view">
+        <field name="name">wizard.form.view</field>
+        <field name="model">disciplinary.wizard</field>
+        <field name="arch" type="xml">
+            <form string="User Form">
+                <sheet>
+                  <group>
+                    <group>
+                        <field name="employee"/>
+                        <field name="employee_nik"/>
+                        <field name="employee_nik_old"/>
+                        <field name="employee_pay_department"/>
+                        <field name="employee_pay_group"/>
+                        <field name="employee_pay_location"/>
+                        <field name="disciplined_date"/>
+                        <field name="disciplinary_stages"/>
+                        <field name="valid_for_months" readonly="1"/>
+                        <field name="reason_disciplinary"/>
+                        <field name="document" widget="binary" />
+<!--                         <field name="manual_action"/>-->
+                        
+<!--                        <field name="send_an_email" readonly="1"/>-->
+<!--                        <field name="send_a_letter" readonly="1"/>-->
+                    </group>
+                  </group>
+                </sheet>
+                 <footer>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                    or 
+                    <button name="allocate_disciplinary" string="Allocate" type="object" default_focus="1" class="oe_highlight"/>
+                 </footer>
+             </form>
+        </field>
+    </record> 
+
+    <record id="wizard_allocate_disciplinary" model="ir.actions.act_window">
+        <field name="name">Allocate Disciplinary</field>
+<!--        <field name="src_model">disciplinary.stage</field>-->
+        <field name="res_model">disciplinary.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="akm_hr_disciplinary.model_disciplinary_stage"/>
+<!--        <field name="view_type">form</field>-->
+        <field name="target">new</field>
+        <field name="view_id" ref="akm_hr_disciplinary.alloc_wizard_form_view"/>
+    </record>
+</odoo>

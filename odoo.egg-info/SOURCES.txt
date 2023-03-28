@@ -4,7 +4,10 @@ README.md
 requirements.txt
 setup.cfg
 setup.py
+<<<<<<< HEAD
 odoo/.DS_Store
+=======
+>>>>>>> 33d0cdbfd149cf87c75603aa6f339bdbd2b5c2d2
 odoo/__init__.py
 odoo/api.py
 odoo/exceptions.py

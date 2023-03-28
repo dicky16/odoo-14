@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_payslip_input_type_view_form_akm" model="ir.ui.view">
+            <field name="name">hr.payslip.input.type.view.form.akm</field>
+            <field name="model">hr.payslip.input.type</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_input_type_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after" >
+                    <field name="is_positive" />
+                </xpath>
+            </field>
+        </record>
+        <record id="rekap_payroll_wizard_form" model="ir.ui.view">
+            <field name="name">rekap.payroll.wizard.form</field>
+            <field name="model">rekap.payroll.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Rekap Payroll">
+                    <group>
+                        <group>
+<!--                            <label for="date_from" string="Period"/>-->
+<!--                            <div class="o_row">-->
+<!--                                <field name="date_from" class="oe_inline" nolabel="1"/>-->
+<!--                                <span class="ml8"> - </span>-->
+<!--                                <field name="date_to" class="oe_inline" nolabel="1"/>-->
+<!--                            </div>-->
+<!--                            <field name="date_from" class="oe_inline"/>-->
+                            <field name="batch_id" class="oe_inline" required="1"/>
+                            <field name="filter_state" class="oe_inline"/>
+                        </group>
+                        <group>
+                            <field name="pay_location" class="oe_inline"/>
+                            <field name="pay_group" class="oe_inline"/>
+                            <field name="pay_department" class="oe_inline"/>
+                        </group>
+<!--                        <group>-->
+<!--                            <field name="employee_id" class="oe_inline"/>-->
+<!--                            <field name="is_active" class="oe_inline"/>-->
+<!--                        </group>-->
+                    </group>
+                    <group>
+                        <group attrs="{'invisible': [('is_printed','!=',True)]}" colspan="4">
+                            <field widget="binary" name="report_file" nolabel="1" filename="xls_report_name" colspan="4"/>
+                            <field name="xls_report_name" nolabel="1" readonly="1" invisible="1"/>
+                        </group>
+
+                        <group>
+                            <field name="is_printed" nolabel="1" readonly="1" invisible="1"/>
+                        </group>
+
+                    </group>
+                    <footer>
+                        <button string='Export' name="export_details" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window
+                name="Rekap Payroll"
+                res_model="rekap.payroll.wizard"
+                binding_model="hr.payslip"
+                view_mode="form"
+                target="new"
+                id="action_rekap_payroll_wizard"
+        />
+
+        <menuitem id="menu_rekap_payroll" name="Rekap Payroll" parent="hr_payroll.menu_hr_payroll_report" action="action_rekap_payroll_wizard"/>
+    </data>
+</odoo>
