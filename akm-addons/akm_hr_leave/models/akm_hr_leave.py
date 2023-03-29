@@ -1,5 +1,7 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 from datetime import datetime, timedelta
+
+from odoo.exceptions import ValidationError
 
 
 class HrWorkEntry(models.Model):

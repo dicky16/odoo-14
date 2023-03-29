@@ -282,7 +282,7 @@ class HrDepartureWizard(models.TransientModel):
     #
     def action_register_departure(self):
         res = super(HrDepartureWizard, self).action_register_departure()
-        HrEmployeePrivate.akm_archive_employee()
+        self.akm_archive_employee()
         employee = self.employee_id
         employee.document_sign = self.document_sign
         employee.document_date = self.document_date

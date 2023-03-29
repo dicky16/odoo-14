@@ -228,7 +228,7 @@ class HrEmployeePrivate(models.Model):
         response_sync = requests.request("POST", sync, headers=headers, data=sync_payload)
     
     def akm_archive_employee(self):
-        self.action_to_api(self.employee_id, {}, "DELETE")
+        # HrEmployeePrivate.action_to_api(self.employee_id, {}, "DELETE")
         for record in self:
             record.active = False
     #
@@ -282,8 +282,9 @@ class HrDepartureWizard(models.TransientModel):
     #
     def action_register_departure(self):
         res = super(HrDepartureWizard, self).action_register_departure()
-        self.akm_archive_employee()
+        # HrEmployeePrivate.akm_archive_employee(HrEmployeePrivate)
         employee = self.employee_id
+        employee.active = False
         employee.document_sign = self.document_sign
         employee.document_date = self.document_date
         return res
