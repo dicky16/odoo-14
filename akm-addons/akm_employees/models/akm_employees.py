@@ -236,23 +236,23 @@ class HrEmployeePrivate(models.Model):
         for record in self:
             record.active = True
 
-    def write(self, vals):
-        res = super(HrEmployeePrivate, self).write(vals)
-        if len(self) == 1:
-            for record in self:
-                id = record.employee_id
-                area = []
-                if vals.get('name'):
-                    data = record.area.split(",")[:-1]
-                    for j in data:
-                        area.append(int(j))
-                    name = vals['name']
-                    payload = {
-                        "first_name": name,
-                        "area": area,
-                    }
-                    #self.action_to_api(id, payload, "PUT")
-            return res
+    # def write(self, vals):
+    #     res = super(HrEmployeePrivate, self).write(vals)
+    #     if len(self) == 1:
+    #         for record in self:
+    #             id = record.employee_id
+    #             area = []
+    #             if vals.get('name'):
+    #                 data = record.area.split(",")[:-1]
+    #                 for j in data:
+    #                     area.append(int(j))
+    #                 name = vals['name']
+    #                 payload = {
+    #                     "first_name": name,
+    #                     "area": area,
+    #                 }
+    #                 #self.action_to_api(id, payload, "PUT")
+    #         return res
             
     # def write(self, vals):
     #     res = super(HrEmployeePrivate, self).write(vals)
